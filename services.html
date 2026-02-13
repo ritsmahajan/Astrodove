@@ -4,384 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Services - Astrodove</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-deep: #1a0b2e;
-            --primary-mid: #2d1b4e;
-            --accent-gold: #d4af37;
-            --accent-celestial: #8b7ab8;
-            --accent-soft: #c9a9e0;
-            --text-light: #f5f1e8;
-            --text-muted: #b8b0a1;
-            --gradient-mystical: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 50%, #4a2c5e 100%);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Cormorant Garamond', serif;
-            background: var(--primary-deep);
-            color: var(--text-light);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        .stars-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--accent-soft);
-            border-radius: 50%;
-            opacity: 0;
-            animation: twinkle 4s infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            padding: 1rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(26, 11, 46, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .logo-img {
-            height: 60px;
-            width: auto;
-            transition: transform 0.3s ease;
-        }
-
-        .logo-img:hover {
-            transform: scale(1.05);
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2.5rem;
-        }
-
-        nav a {
-            font-family: 'Cinzel', serif;
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-gold);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover {
-            color: var(--accent-gold);
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        nav a.active {
-            color: var(--accent-gold);
-        }
-
-        .page-hero {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 10rem 5% 4rem;
-            background: var(--gradient-mystical);
-            margin-top: 80px;
-        }
-
-        .page-hero h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 4rem;
-            color: var(--accent-gold);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .page-hero p {
-            font-size: 1.4rem;
-            color: var(--text-muted);
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .services {
-            position: relative;
-            z-index: 1;
-            padding: 6rem 5%;
-            background: rgba(45, 27, 78, 0.4);
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 3rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .service-card {
-            background: linear-gradient(135deg, rgba(45, 27, 78, 0.6), rgba(26, 11, 46, 0.8));
-            padding: 3rem;
-            border-radius: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent-gold);
-            box-shadow: 0 20px 50px rgba(139, 122, 184, 0.3);
-        }
-
-        .service-card:hover::before {
-            opacity: 1;
-        }
-
-        .service-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            display: block;
-        }
-
-        .service-card h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            color: var(--accent-gold);
-            letter-spacing: 2px;
-        }
-
-        .service-card p {
-            font-size: 1.2rem;
-            color: var(--text-light);
-            line-height: 1.9;
-            margin-bottom: 1.5rem;
-        }
-
-        .service-card ul {
-            list-style: none;
-            margin-top: 1rem;
-        }
-
-        .service-card li {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            padding: 0.5rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-
-        .service-card li::before {
-            content: '✦';
-            position: absolute;
-            left: 0;
-            color: var(--accent-celestial);
-        }
-
-        .cta-section {
-            position: relative;
-            z-index: 1;
-            padding: 6rem 5%;
-            text-align: center;
-            background: var(--gradient-mystical);
-        }
-
-        .cta-section h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 3rem;
-            color: var(--accent-gold);
-            letter-spacing: 3px;
-            margin-bottom: 2rem;
-        }
-
-        .cta-section p {
-            font-size: 1.3rem;
-            color: var(--text-light);
-            margin-bottom: 3rem;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 3rem;
-            background: linear-gradient(135deg, var(--accent-gold), #c29d2a);
-            color: var(--primary-deep);
-            text-decoration: none;
-            font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 2px;
-            border-radius: 50px;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
-        }
-
-        footer {
-            position: relative;
-            z-index: 1;
-            padding: 3rem 5%;
-            text-align: center;
-            background: rgba(26, 11, 46, 0.9);
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-        }
-
-        footer p {
-            color: var(--text-muted);
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 1.5rem;
-        }
-
-        .footer-links a {
-            color: var(--accent-celestial);
-            text-decoration: none;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: var(--accent-gold);
-        }
-
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--accent-gold);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            header {
-                padding: 1rem 3%;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            nav {
-                position: fixed;
-                top: 80px;
-                left: -100%;
-                width: 100%;
-                background: rgba(26, 11, 46, 0.98);
-                padding: 2rem;
-                transition: left 0.3s ease;
-            }
-
-            nav.active {
-                left: 0;
-            }
-
-            nav ul {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-
-            .page-hero {
-                padding: 8rem 3% 3rem;
-            }
-
-            .page-hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        :root { --primary-cream: #f5f1e8; --accent-gold: #c9a052; --text-dark: #3d3528; --border-gold: rgba(201, 160, 82, 0.3); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cormorant Garamond', serif; background: var(--primary-cream); color: var(--text-dark); }
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; background: rgba(250, 248, 243, 0.98); border-bottom: 2px solid var(--border-gold); }
+        .logo-img { height: 70px; }
+        nav ul { list-style: none; display: flex; gap: 2.5rem; }
+        nav a { font-family: 'Cinzel', serif; color: var(--text-dark); text-decoration: none; }
+        nav a:hover, nav a.active { color: var(--accent-gold); }
+        .page-hero { margin-top: 90px; padding: 6rem 5% 3rem; text-align: center; background: linear-gradient(135deg, #faf8f3 0%, #f5f1e8 50%, #ede7dc 100%); }
+        .page-hero h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; color: var(--accent-gold); }
+        .services { padding: 4rem 5%; background: white; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem; max-width: 1400px; margin: 0 auto; }
+        .service-card { background: #faf8f3; padding: 3rem; border-radius: 15px; border: 2px solid var(--border-gold); transition: all 0.3s; }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(201, 160, 82, 0.2); }
+        .service-icon { font-size: 3.5rem; margin-bottom: 1.5rem; display: block; }
+        .service-card h3 { font-family: 'Cinzel', serif; font-size: 1.8rem; color: var(--accent-gold); margin-bottom: 1.5rem; }
+        .service-card p { font-size: 1.2rem; line-height: 1.9; }
+        .cta-section { padding: 6rem 5%; text-align: center; background: linear-gradient(135deg, #faf8f3 0%, #f5f1e8 50%, #ede7dc 100%); }
+        .cta-section h2 { font-family: 'Cinzel', serif; font-size: 3rem; color: var(--accent-gold); margin-bottom: 2rem; }
+        .cta-button { display: inline-block; padding: 1rem 3rem; background: linear-gradient(135deg, var(--accent-gold), #a67c3a); color: white; text-decoration: none; font-family: 'Cinzel', serif; font-size: 1.1rem; border-radius: 50px; transition: all 0.4s; }
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(201, 160, 82, 0.5); }
+        footer { padding: 3rem 5%; text-align: center; background: #8a7b6d; color: white; }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; }
+        .footer-links a { color: #faf8f3; text-decoration: none; }
     </style>
 </head>
 <body>
-    <div class="stars-bg" id="starsBg"></div>
-
     <header>
         <div class="logo-container">
-            <a href="index.html">
-                <img src="Astrodove_logo_written.jpg" alt="Astrodove Logo" class="logo-img">
-            </a>
+            <a href="index.html"><img src="Astrodove_logo_transparent.png" alt="Astrodove Logo" class="logo-img"></a>
         </div>
-        <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
-        <nav id="mainNav">
+        <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="services.html" class="active">Services</a></li>
@@ -393,7 +49,7 @@
 
     <section class="page-hero">
         <h1>Our Services</h1>
-        <p>Explore the sacred arts that illuminate your cosmic path</p>
+        <p style="font-size: 1.4rem; margin-top: 1rem;">Explore the sacred arts that illuminate your cosmic path</p>
     </section>
 
     <section class="services">
@@ -402,112 +58,59 @@
                 <span class="service-icon">🔮</span>
                 <h3>Online Consultation</h3>
                 <p>Personalized spiritual guidance from the comfort of your home. Connect with Rits Mahajan for transformative insights into your life path.</p>
-                <ul>
-                    <li>One-on-one video sessions</li>
-                    <li>Comprehensive life readings</li>
-                    <li>Personalized guidance & remedies</li>
-                </ul>
             </div>
-
             <div class="service-card">
                 <span class="service-icon">💎</span>
                 <h3>Crystal Healing</h3>
                 <p>Harness the healing energy of authentic crystals. Carefully selected gemstones to balance your chakras and enhance your spiritual journey.</p>
-                <ul>
-                    <li>Authentic healing crystals</li>
-                    <li>Chakra balancing stones</li>
-                    <li>Personalized crystal selection</li>
-                </ul>
             </div>
-
             <div class="service-card">
                 <span class="service-icon">🃏</span>
                 <h3>Tarot Reading</h3>
                 <p>Unlock the mysteries of your past, present, and future through ancient tarot wisdom. Gain clarity on life's most pressing questions.</p>
-                <ul>
-                    <li>Past, present & future insights</li>
-                    <li>Relationship guidance</li>
-                    <li>Career & life path readings</li>
-                </ul>
             </div>
-
             <div class="service-card">
                 <span class="service-icon">🔢</span>
                 <h3>Numerology</h3>
                 <p>Discover the hidden meanings in numbers that shape your destiny. Understand your life path, soul urge, and karmic lessons.</p>
-                <ul>
-                    <li>Life path number analysis</li>
-                    <li>Soul urge & destiny numbers</li>
-                    <li>Karmic debt revelations</li>
-                </ul>
             </div>
-
             <div class="service-card">
                 <span class="service-icon">⭐</span>
                 <h3>Astronumerology</h3>
                 <p>A unique blend of astrology and numerology for comprehensive cosmic insights. Align with your celestial blueprint.</p>
-                <ul>
-                    <li>Combined astrological & numerical analysis</li>
-                    <li>Cosmic timing guidance</li>
-                    <li>Planetary number harmonization</li>
-                </ul>
             </div>
-
             <div class="service-card">
                 <span class="service-icon">🏛️</span>
                 <h3>Vastu Shastra</h3>
                 <p>Harmonize your living and working spaces with ancient architectural wisdom. Create environments that support prosperity and wellbeing.</p>
-                <ul>
-                    <li>Home & office analysis</li>
-                    <li>Space energy optimization</li>
-                    <li>Remedial solutions</li>
-                </ul>
             </div>
-
             <div class="service-card">
                 <span class="service-icon">🌈</span>
                 <h3>Colour Therapy</h3>
                 <p>Heal and balance your energy through the vibrational power of colors. Discover hues that resonate with your soul.</p>
-                <ul>
-                    <li>Personal color analysis</li>
-                    <li>Chakra color healing</li>
-                    <li>Wardrobe & environment guidance</li>
-                </ul>
             </div>
-
             <div class="service-card">
                 <span class="service-icon">📱</span>
                 <h3>Mobile Number Analysis</h3>
                 <p>Ensure your mobile number vibrates in harmony with your energy. Choose numbers that attract success and positive opportunities.</p>
-                <ul>
-                    <li>Current number analysis</li>
-                    <li>Lucky number selection</li>
-                    <li>Vibrational compatibility</li>
-                </ul>
             </div>
-
             <div class="service-card">
                 <span class="service-icon">✨</span>
                 <h3>Name Numerology</h3>
                 <p>Understand the cosmic significance of your name. Align your identity with your soul's purpose through name correction and analysis.</p>
-                <ul>
-                    <li>Name vibration analysis</li>
-                    <li>Signature optimization</li>
-                    <li>Business name consultation</li>
-                </ul>
             </div>
         </div>
     </section>
 
     <section class="cta-section">
         <h2>Ready to Begin Your Journey?</h2>
-        <p>Book a consultation and discover the cosmic wisdom waiting for you</p>
+        <p style="font-size: 1.3rem; margin-bottom: 3rem;">Book a consultation and discover the cosmic wisdom waiting for you</p>
         <a href="contact.html" class="cta-button">Schedule Consultation</a>
     </section>
 
     <footer>
         <p>&copy; 2026 Astrodove. All rights reserved.</p>
-        <p>Guided by the stars, grounded in wisdom.</p>
+        <p>📱 Call/WhatsApp: +91 7507303192</p>
         <div class="footer-links">
             <a href="index.html">Home</a>
             <a href="services.html">Services</a>
@@ -515,32 +118,5 @@
             <a href="contact.html">Contact</a>
         </div>
     </footer>
-
-    <script>
-        function createStars() {
-            const starsBg = document.getElementById('starsBg');
-            const numberOfStars = 100;
-            for (let i = 0; i < numberOfStars; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.animationDelay = Math.random() * 4 + 's';
-                starsBg.appendChild(star);
-            }
-        }
-        createStars();
-
-        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-        const mainNav = document.getElementById('mainNav');
-        mobileMenuToggle.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
-        });
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('header')) {
-                mainNav.classList.remove('active');
-            }
-        });
-    </script>
 </body>
 </html>
