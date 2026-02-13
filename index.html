@@ -9,14 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary-deep: #1a0b2e;
-            --primary-mid: #2d1b4e;
-            --accent-gold: #d4af37;
-            --accent-celestial: #8b7ab8;
-            --accent-soft: #c9a9e0;
-            --text-light: #f5f1e8;
-            --text-muted: #b8b0a1;
-            --gradient-mystical: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 50%, #4a2c5e 100%);
+            --primary-cream: #f5f1e8;
+            --primary-light: #faf8f3;
+            --accent-gold: #c9a052;
+            --accent-deep-gold: #a67c3a;
+            --accent-dove: #8a7b6d;
+            --text-dark: #3d3528;
+            --text-muted: #6b5d4f;
+            --border-gold: rgba(201, 160, 82, 0.3);
+            --gradient-mystical: linear-gradient(135deg, #faf8f3 0%, #f5f1e8 50%, #ede7dc 100%);
         }
 
         * {
@@ -27,13 +28,12 @@
 
         body {
             font-family: 'Cormorant Garamond', serif;
-            background: var(--primary-deep);
-            color: var(--text-light);
+            background: var(--primary-cream);
+            color: var(--text-dark);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        /* Animated background stars */
         .stars-bg {
             position: fixed;
             top: 0;
@@ -48,7 +48,7 @@
             position: absolute;
             width: 2px;
             height: 2px;
-            background: var(--accent-soft);
+            background: var(--accent-gold);
             border-radius: 50%;
             opacity: 0;
             animation: twinkle 4s infinite;
@@ -56,10 +56,9 @@
 
         @keyframes twinkle {
             0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
 
-        /* Header */
         header {
             position: fixed;
             top: 0;
@@ -70,19 +69,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(26, 11, 46, 0.95);
+            background: rgba(250, 248, 243, 0.98);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 2px solid var(--border-gold);
+            box-shadow: 0 2px 20px rgba(201, 160, 82, 0.1);
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
+        .logo-container a {
+            display: block;
         }
 
         .logo-img {
-            height: 60px;
+            height: 70px;
             width: auto;
             transition: transform 0.3s ease;
         }
@@ -99,7 +97,7 @@
 
         nav a {
             font-family: 'Cinzel', serif;
-            color: var(--text-light);
+            color: var(--text-dark);
             text-decoration: none;
             font-size: 0.95rem;
             letter-spacing: 1px;
@@ -119,7 +117,7 @@
         }
 
         nav a:hover {
-            color: var(--accent-gold);
+            color: var(--accent-deep-gold);
         }
 
         nav a:hover::after {
@@ -130,7 +128,6 @@
             color: var(--accent-gold);
         }
 
-        /* Hero Section */
         .hero {
             position: relative;
             z-index: 1;
@@ -141,7 +138,7 @@
             text-align: center;
             padding: 8rem 5% 4rem;
             background: var(--gradient-mystical);
-            margin-top: 80px;
+            margin-top: 90px;
         }
 
         .hero::before {
@@ -152,7 +149,7 @@
             transform: translate(-50%, -50%);
             width: 800px;
             height: 800px;
-            background: radial-gradient(circle, rgba(139, 122, 184, 0.2) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(201, 160, 82, 0.15) 0%, transparent 70%);
             pointer-events: none;
             animation: pulse 8s ease-in-out infinite;
         }
@@ -169,21 +166,16 @@
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .hero-logo {
-            width: 250px;
+            width: 280px;
             height: auto;
             margin: 0 auto 3rem;
             animation: fadeInUp 1s ease-out 0.2s both;
+            filter: drop-shadow(0 4px 12px rgba(201, 160, 82, 0.2));
         }
 
         .hero h1 {
@@ -195,20 +187,21 @@
             letter-spacing: 4px;
             text-transform: uppercase;
             animation: fadeInUp 1s ease-out 0.4s both;
+            text-shadow: 2px 2px 4px rgba(201, 160, 82, 0.1);
         }
 
         .hero .subtitle {
             font-size: 1.8rem;
-            color: var(--text-light);
+            color: var(--text-dark);
             margin-bottom: 1rem;
-            font-weight: 300;
+            font-weight: 400;
             letter-spacing: 2px;
             animation: fadeInUp 1s ease-out 0.6s both;
         }
 
         .hero .founder {
             font-size: 1.3rem;
-            color: var(--accent-celestial);
+            color: var(--accent-dove);
             margin-bottom: 3rem;
             font-style: italic;
             animation: fadeInUp 1s ease-out 0.8s both;
@@ -234,8 +227,8 @@
         .cta-button {
             display: inline-block;
             padding: 1rem 3rem;
-            background: linear-gradient(135deg, var(--accent-gold), #c29d2a);
-            color: var(--primary-deep);
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-deep-gold));
+            color: white;
             text-decoration: none;
             font-family: 'Cinzel', serif;
             font-size: 1.1rem;
@@ -243,12 +236,12 @@
             letter-spacing: 2px;
             border-radius: 50px;
             transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(201, 160, 82, 0.3);
         }
 
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
+            box-shadow: 0 15px 40px rgba(201, 160, 82, 0.5);
         }
 
         .cta-button.secondary {
@@ -258,15 +251,14 @@
         }
 
         .cta-button.secondary:hover {
-            background: rgba(212, 175, 55, 0.1);
+            background: rgba(201, 160, 82, 0.1);
         }
 
-        /* Features Section */
         .features {
             position: relative;
             z-index: 1;
             padding: 6rem 5%;
-            background: rgba(45, 27, 78, 0.4);
+            background: white;
         }
 
         .features-grid {
@@ -281,6 +273,15 @@
             text-align: center;
             padding: 2rem;
             animation: fadeInUp 0.8s ease-out both;
+            background: var(--primary-light);
+            border-radius: 15px;
+            border: 2px solid var(--border-gold);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(201, 160, 82, 0.2);
         }
 
         .feature-card:nth-child(1) { animation-delay: 0.2s; }
@@ -290,7 +291,6 @@
         .feature-icon {
             font-size: 4rem;
             margin-bottom: 1.5rem;
-            display: block;
         }
 
         .feature-card h3 {
@@ -307,7 +307,6 @@
             line-height: 1.8;
         }
 
-        /* Services Preview */
         .services-preview {
             position: relative;
             z-index: 1;
@@ -327,11 +326,8 @@
 
         .services-preview p {
             font-size: 1.3rem;
-            color: var(--text-light);
+            color: var(--text-dark);
             margin-bottom: 3rem;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         .services-list {
@@ -343,47 +339,37 @@
         }
 
         .service-item {
-            background: rgba(45, 27, 78, 0.6);
+            background: white;
             padding: 1.5rem;
             border-radius: 10px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 2px solid var(--border-gold);
             transition: all 0.3s ease;
-            animation: fadeInUp 0.6s ease-out both;
         }
-
-        .service-item:nth-child(1) { animation-delay: 0.1s; }
-        .service-item:nth-child(2) { animation-delay: 0.2s; }
-        .service-item:nth-child(3) { animation-delay: 0.3s; }
-        .service-item:nth-child(4) { animation-delay: 0.4s; }
-        .service-item:nth-child(5) { animation-delay: 0.5s; }
-        .service-item:nth-child(6) { animation-delay: 0.6s; }
 
         .service-item:hover {
             transform: translateY(-5px);
             border-color: var(--accent-gold);
-            box-shadow: 0 10px 30px rgba(139, 122, 184, 0.3);
+            box-shadow: 0 10px 30px rgba(201, 160, 82, 0.2);
         }
 
         .service-item h4 {
             font-family: 'Cinzel', serif;
             font-size: 1.3rem;
             color: var(--accent-gold);
-            margin-bottom: 0.5rem;
             letter-spacing: 1px;
         }
 
-        /* Footer */
         footer {
             position: relative;
             z-index: 1;
             padding: 3rem 5%;
             text-align: center;
-            background: rgba(26, 11, 46, 0.9);
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            background: var(--accent-dove);
+            color: white;
         }
 
         footer p {
-            color: var(--text-muted);
+            color: var(--primary-cream);
             font-size: 1rem;
             margin-bottom: 1rem;
         }
@@ -396,7 +382,7 @@
         }
 
         .footer-links a {
-            color: var(--accent-celestial);
+            color: var(--primary-light);
             text-decoration: none;
             font-family: 'Cinzel', serif;
             letter-spacing: 1px;
@@ -407,7 +393,6 @@
             color: var(--accent-gold);
         }
 
-        /* Mobile Menu */
         .mobile-menu-toggle {
             display: none;
             background: none;
@@ -417,80 +402,31 @@
             cursor: pointer;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            header {
-                padding: 1rem 3%;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
+            .mobile-menu-toggle { display: block; }
             nav {
                 position: fixed;
-                top: 80px;
+                top: 90px;
                 left: -100%;
                 width: 100%;
-                background: rgba(26, 11, 46, 0.98);
+                background: rgba(250, 248, 243, 0.98);
                 padding: 2rem;
                 transition: left 0.3s ease;
             }
-
-            nav.active {
-                left: 0;
-            }
-
-            nav ul {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-
-            .hero {
-                margin-top: 80px;
-                padding: 4rem 3% 3rem;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero .subtitle {
-                font-size: 1.3rem;
-            }
-
-            .hero-logo {
-                width: 180px;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .services-list {
-                grid-template-columns: 1fr;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
+            nav.active { left: 0; }
+            nav ul { flex-direction: column; gap: 1.5rem; }
+            .hero h1 { font-size: 2.5rem; }
+            .hero-logo { width: 180px; }
         }
     </style>
 </head>
 <body>
-    <!-- Animated stars background -->
     <div class="stars-bg" id="starsBg"></div>
 
-    <!-- Header -->
     <header>
         <div class="logo-container">
             <a href="index.html">
-                <img src="Astrodove_logo_written.jpg" alt="Astrodove Logo" class="logo-img">
+                <img src="Astrodove_logo_transparent.png" alt="Astrodove Logo" class="logo-img">
             </a>
         </div>
         <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
@@ -504,10 +440,9 @@
         </nav>
     </header>
 
-    <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <img src="Astrodove_logo_written.jpg" alt="Astrodove" class="hero-logo">
+            <img src="Astrodove_logo_transparent.png" alt="Astrodove" class="hero-logo">
             <h1>Astrodove</h1>
             <p class="subtitle">Divine Guidance Through Cosmic Wisdom</p>
             <p class="founder">Founded by Rits Mahajan</p>
@@ -522,7 +457,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section class="features">
         <div class="features-grid">
             <div class="feature-card">
@@ -543,39 +477,24 @@
         </div>
     </section>
 
-    <!-- Services Preview -->
     <section class="services-preview">
         <h2 class="section-title">Our Sacred Services</h2>
         <p>Explore the ancient arts that unlock the mysteries of your destiny</p>
-        
         <div class="services-list">
-            <div class="service-item">
-                <h4>🔮 Online Consultation</h4>
-            </div>
-            <div class="service-item">
-                <h4>💎 Crystal Healing</h4>
-            </div>
-            <div class="service-item">
-                <h4>🃏 Tarot Reading</h4>
-            </div>
-            <div class="service-item">
-                <h4>🔢 Numerology</h4>
-            </div>
-            <div class="service-item">
-                <h4>⭐ Astronumerology</h4>
-            </div>
-            <div class="service-item">
-                <h4>🏛️ Vastu Shastra</h4>
-            </div>
+            <div class="service-item"><h4>🔮 Online Consultation</h4></div>
+            <div class="service-item"><h4>💎 Crystal Healing</h4></div>
+            <div class="service-item"><h4>🃏 Tarot Reading</h4></div>
+            <div class="service-item"><h4>🔢 Numerology</h4></div>
+            <div class="service-item"><h4>⭐ Astronumerology</h4></div>
+            <div class="service-item"><h4>🏛️ Vastu Shastra</h4></div>
         </div>
-        
         <a href="services.html" class="cta-button" style="margin-top: 2rem;">View All Services</a>
     </section>
 
-    <!-- Footer -->
     <footer>
         <p>&copy; 2026 Astrodove. All rights reserved.</p>
         <p>Guided by the stars, grounded in wisdom.</p>
+        <p>📱 Call/WhatsApp: +91 7507303192</p>
         <div class="footer-links">
             <a href="index.html">Home</a>
             <a href="services.html">Services</a>
@@ -585,12 +504,9 @@
     </footer>
 
     <script>
-        // Create animated stars
         function createStars() {
             const starsBg = document.getElementById('starsBg');
-            const numberOfStars = 100;
-
-            for (let i = 0; i < numberOfStars; i++) {
+            for (let i = 0; i < 80; i++) {
                 const star = document.createElement('div');
                 star.className = 'star';
                 star.style.left = Math.random() * 100 + '%';
@@ -599,22 +515,13 @@
                 starsBg.appendChild(star);
             }
         }
-
         createStars();
 
-        // Mobile menu toggle
         const mobileMenuToggle = document.getElementById('mobileMenuToggle');
         const mainNav = document.getElementById('mainNav');
-
-        mobileMenuToggle.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking outside
+        mobileMenuToggle.addEventListener('click', () => mainNav.classList.toggle('active'));
         document.addEventListener('click', (e) => {
-            if (!e.target.closest('header')) {
-                mainNav.classList.remove('active');
-            }
+            if (!e.target.closest('header')) mainNav.classList.remove('active');
         });
     </script>
 </body>
