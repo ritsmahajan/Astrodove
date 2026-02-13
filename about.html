@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Astrodove</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-deep: #1a0b2e;
+            --primary-mid: #2d1b4e;
+            --accent-gold: #d4af37;
+            --accent-celestial: #8b7ab8;
+            --accent-soft: #c9a9e0;
+            --text-light: #f5f1e8;
+            --text-muted: #b8b0a1;
+            --gradient-mystical: linear-gradient(135deg, #1a0b2e 0%, #2d1b4e 50%, #4a2c5e 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: var(--primary-deep);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .stars-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-soft);
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 4s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(26, 11, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            font-family: 'Cinzel', serif;
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: var(--accent-gold);
+        }
+
+        .page-hero {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 10rem 5% 4rem;
+            background: var(--gradient-mystical);
+            margin-top: 80px;
+        }
+
+        .page-hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 4rem;
+            color: var(--accent-gold);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .page-hero p {
+            font-size: 1.4rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            position: relative;
+            z-index: 1;
+            padding: 6rem 5%;
+            background: rgba(45, 27, 78, 0.4);
+        }
+
+        .about-section {
+            max-width: 1000px;
+            margin: 0 auto 5rem;
+        }
+
+        .about-section h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            letter-spacing: 3px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .about-section p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            line-height: 2;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .founder-section {
+            position: relative;
+            z-index: 1;
+            padding: 6rem 5%;
+            background: var(--gradient-mystical);
+        }
+
+        .founder-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .founder-content h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--accent-gold);
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .founder-content .title {
+            font-size: 1.5rem;
+            color: var(--accent-celestial);
+            font-style: italic;
+            margin-bottom: 3rem;
+        }
+
+        .founder-content p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            line-height: 2;
+            margin-bottom: 1.5rem;
+        }
+
+        .values-section {
+            position: relative;
+            z-index: 1;
+            padding: 6rem 5%;
+            background: rgba(45, 27, 78, 0.4);
+        }
+
+        .values-section h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--accent-gold);
+            letter-spacing: 3px;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .value-card {
+            background: linear-gradient(135deg, rgba(45, 27, 78, 0.6), rgba(26, 11, 46, 0.8));
+            padding: 3rem;
+            border-radius: 15px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 20px 50px rgba(139, 122, 184, 0.3);
+        }
+
+        .value-card .icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .value-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--accent-gold);
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+        }
+
+        .value-card p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .cta-section {
+            position: relative;
+            z-index: 1;
+            padding: 6rem 5%;
+            text-align: center;
+            background: var(--gradient-mystical);
+        }
+
+        .cta-section h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            color: var(--accent-gold);
+            letter-spacing: 3px;
+            margin-bottom: 2rem;
+        }
+
+        .cta-section p {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--accent-gold), #c29d2a);
+            color: var(--primary-deep);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.5);
+        }
+
+        footer {
+            position: relative;
+            z-index: 1;
+            padding: 3rem 5%;
+            text-align: center;
+            background: rgba(26, 11, 46, 0.9);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        footer p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--accent-celestial);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-gold);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--accent-gold);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 3%;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                background: rgba(26, 11, 46, 0.98);
+                padding: 2rem;
+                transition: left 0.3s ease;
+            }
+
+            nav.active {
+                left: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .page-hero {
+                padding: 8rem 3% 3rem;
+            }
+
+            .page-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars-bg" id="starsBg"></div>
+
+    <header>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Astrodove_logo_written.jpg" alt="Astrodove Logo" class="logo-img">
+            </a>
+        </div>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle">☰</button>
+        <nav id="mainNav">
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="page-hero">
+        <h1>About Astrodove</h1>
+        <p>A sanctuary for cosmic wisdom and spiritual transformation</p>
+    </section>
+
+    <section class="about-content">
+        <div class="about-section">
+            <h2>Our Mission</h2>
+            <p>Astrodove is a sacred space where ancient mystical sciences meet modern understanding. We bridge the timeless wisdom of astrology, numerology, energy healing, and sacred geometry to illuminate the path of self-discovery and divine alignment.</p>
+            <p>Through our comprehensive spiritual services, we guide seekers toward their highest potential, helping them understand their cosmic blueprint and manifest their soul's purpose.</p>
+        </div>
+    </section>
+
+    <section class="founder-section">
+        <div class="founder-content">
+            <h2>Rits Mahajan</h2>
+            <p class="title">Founder & Spiritual Guide</p>
+            <p>Rits Mahajan is a dedicated spiritual practitioner with years of experience in the mystical arts. With deep reverence for cosmic wisdom and an authentic connection to ancient traditions, Rits brings transformative guidance to every consultation.</p>
+            <p>Specializing in the harmonious integration of multiple spiritual sciences, Rits offers personalized insights that honor each individual's unique journey. Through compassionate guidance and profound understanding, Astrodove has become a trusted sanctuary for those seeking clarity, purpose, and spiritual alignment.</p>
+            <p>Rits believes that within each person lies a divine blueprint waiting to be discovered. Through the sacred arts of numerology, astrology, tarot, and energy healing, this blueprint can be revealed, empowering individuals to live in harmony with their true cosmic nature.</p>
+        </div>
+    </section>
+
+    <section class="values-section">
+        <h2>Our Core Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="icon">🌟</div>
+                <h3>Authenticity</h3>
+                <p>We honor ancient wisdom traditions with integrity and respect, offering genuine spiritual guidance rooted in time-tested practices.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon">💫</div>
+                <h3>Compassion</h3>
+                <p>Every soul's journey is unique. We provide personalized, compassionate guidance tailored to your individual path and circumstances.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon">✨</div>
+                <h3>Transformation</h3>
+                <p>We facilitate profound spiritual transformation, helping you align with your highest purpose and manifest your soul's potential.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Begin Your Cosmic Journey</h2>
+        <p>Connect with Rits Mahajan and discover the wisdom that awaits you</p>
+        <a href="contact.html" class="cta-button">Schedule Consultation</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Astrodove. All rights reserved.</p>
+        <p>Guided by the stars, grounded in wisdom.</p>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        function createStars() {
+            const starsBg = document.getElementById('starsBg');
+            const numberOfStars = 100;
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 4 + 's';
+                starsBg.appendChild(star);
+            }
+        }
+        createStars();
+
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mainNav = document.getElementById('mainNav');
+        mobileMenuToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+        });
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('header')) {
+                mainNav.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
