@@ -1,0 +1,25 @@
+{
+  "name": "astrodove-website",
+  "version": "1.0.0",
+  "description": "Astrodove Crystal Store with Admin Panel",
+  "main": "index.html",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'No build step required'",
+    "deploy": "netlify deploy --prod"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^7.0.0"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "keywords": [
+    "astrodove",
+    "crystals",
+    "ecommerce",
+    "netlify"
+  ],
+  "author": "Rits Mahajan",
+  "license": "MIT"
+}

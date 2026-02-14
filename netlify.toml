@@ -1,0 +1,33 @@
+# Netlify configuration for Astrodove
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+# Redirect rules for admin
+[[redirects]]
+  from = "/admin"
+  to = "/admin-login.html"
+  status = 200
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Headers for security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/admin-*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+# Environment variables (set these in Netlify dashboard)
+# ADMIN_USERNAME = rits_astrodove
+# ADMIN_PASSWORD = lB*Wkq#4rFJFGJrN
+# JWT_SECRET = (generate a random secret)
