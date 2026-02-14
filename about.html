@@ -38,6 +38,44 @@
         footer { padding: 3rem 5%; text-align: center; background: #8a7b6d; color: white; }
         .footer-links { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; }
         .footer-links a { color: #faf8f3; text-decoration: none; }
+        
+        @media (max-width: 768px) {
+            header { padding: 1rem 3%; }
+            .logo-img { height: 50px; }
+            nav { display: none; }
+            nav.active { 
+                display: block; 
+                position: fixed; 
+                top: 80px; 
+                left: 0; 
+                right: 0; 
+                background: white; 
+                padding: 2rem; 
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
+            }
+            nav.active ul { flex-direction: column; gap: 1.5rem; text-align: center; }
+            .page-hero { margin-top: 80px; padding: 4rem 3% 2rem; }
+            .page-hero h1 { font-size: 2.5rem; }
+            .page-hero p { font-size: 1.2rem; }
+            .about-content { padding: 4rem 3%; }
+            .about-section { margin-bottom: 3rem; }
+            .about-section h2 { font-size: 2rem; }
+            .about-section p { font-size: 1.1rem; }
+            .founder-section { padding: 4rem 3%; }
+            .founder-content h2 { font-size: 2.5rem; }
+            .founder-content .title { font-size: 1.3rem; }
+            .founder-content p { font-size: 1.1rem; }
+            .values-section { padding: 4rem 3%; }
+            .values-section h2 { font-size: 2.5rem; }
+            .values-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .value-card { padding: 2rem; }
+            .value-card h3 { font-size: 1.5rem; }
+            .cta-section { padding: 4rem 3%; }
+            .cta-section h2 { font-size: 2rem; }
+            .cta-section p { font-size: 1.1rem; }
+            .cta-button { padding: 1rem 2rem; font-size: 1rem; }
+            .footer-links { flex-wrap: wrap; gap: 1rem; }
+        }
     </style>
 </head>
 <body>

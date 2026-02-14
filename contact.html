@@ -38,6 +38,22 @@
         .contact-content { padding: 4rem 5%; background: white; }
         .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; max-width: 1200px; margin: 0 auto; }
         
+        @media (max-width: 768px) {
+            header { padding: 1rem 3%; flex-wrap: wrap; }
+            .logo-img { height: 50px; }
+            nav ul { flex-direction: column; gap: 1rem; position: fixed; top: 80px; left: -100%; 
+                     background: white; width: 100%; padding: 2rem; transition: 0.3s;
+                     box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+            nav ul.active { left: 0; }
+            .page-hero h1 { font-size: 2.5rem; }
+            .page-hero { padding: 4rem 3% 2rem; margin-top: 80px; }
+            .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .contact-content { padding: 2rem 3%; }
+            .contact-form { padding: 2rem 1.5rem; }
+            .info-item { flex-direction: column; gap: 1rem; padding: 1rem; }
+            .form-group input, .form-group select, .form-group textarea { font-size: 16px; }
+        }
+        
         .contact-info h2 { font-family: 'Cinzel', serif; font-size: 2.5rem; color: var(--accent-gold); margin-bottom: 2rem; }
         .info-item {
             display: flex; gap: 1.5rem; margin-bottom: 2rem; padding: 1.5rem;
@@ -93,11 +109,9 @@
         footer p { color: var(--primary-cream); margin-bottom: 1rem; }
         .footer-links { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; }
         .footer-links a { color: var(--primary-light); text-decoration: none; font-family: 'Cinzel', serif; }
-        
-        @media (max-width: 968px) {
-            .contact-grid { grid-template-columns: 1fr; }
-        }
     </style>
+        
+        footer {
 </head>
 <body>
     <header>
@@ -131,7 +145,7 @@
                     <div class="icon">📧</div>
                     <div>
                         <h3>Email</h3>
-                        <p>ritsmahajan23@outlook.com</p>
+                        <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8ffde6fbfce2eee7eee5eee1bdbccfe0fafbe3e0e0e4a1ece0e2">[email&#160;protected]</a></p>
                     </div>
                 </div>
 
@@ -165,7 +179,7 @@
                 
                 <div class="pricing-info">
                     <h3>Session Pricing</h3>
-                    <div class="price">₹2,000</div>
+                    <div class="price">₹2,400</div>
                     <p style="color: var(--text-muted); font-size: 1.1rem;">Per consultation session (60 minutes)</p>
                 </div>
 
@@ -235,10 +249,5 @@
         </div>
     </footer>
 
-    <script>
-        // Form will be submitted directly to FormSubmit service
-        // The first submission will require email verification
-        // After that, all form submissions will be sent to ritsmahajan23@outlook.com
-    </script>
-</body>
-</html>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        /

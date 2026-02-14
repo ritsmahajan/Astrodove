@@ -541,20 +541,51 @@
         }
 
         @media (max-width: 768px) {
-            .mobile-menu-toggle { display: block; }
+            header { padding: 1rem 3%; }
+            .logo-img { height: 50px; }
+            .mobile-menu-toggle { 
+                display: block; 
+                background: none; 
+                border: none; 
+                font-size: 1.8rem; 
+                color: var(--accent-gold); 
+                cursor: pointer; 
+            }
             nav {
                 position: fixed;
-                top: 90px;
+                top: 80px;
                 left: -100%;
                 width: 100%;
                 background: rgba(250, 248, 243, 0.98);
                 padding: 2rem;
                 transition: left 0.3s ease;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
             }
             nav.active { left: 0; }
-            nav ul { flex-direction: column; gap: 1.5rem; }
-            .hero h1 { font-size: 2.5rem; }
-            .hero-logo { width: 180px; }
+            nav ul { flex-direction: column; gap: 1.5rem; text-align: center; }
+            .hero { margin-top: 80px; padding: 4rem 3% 3rem; min-height: 80vh; }
+            .hero h1 { font-size: 2.5rem; letter-spacing: 2px; }
+            .hero-logo { width: 150px; margin-bottom: 2rem; }
+            .hero .subtitle { font-size: 1.3rem; }
+            .hero .founder { font-size: 1.1rem; }
+            .hero .description { font-size: 1.1rem; }
+            .cta-buttons { flex-direction: column; gap: 1rem; }
+            .cta-button { width: 100%; max-width: 300px; padding: 1rem 2rem; font-size: 1rem; }
+            .features-grid { grid-template-columns: 1fr; gap: 2rem; padding: 0 1rem; }
+            .feature-card { padding: 2rem; }
+            .services-grid { grid-template-columns: 1fr; gap: 2rem; padding: 0 1rem; }
+            .service-card { padding: 2rem; }
+            .service-card h3 { font-size: 1.5rem; }
+            .products-grid { grid-template-columns: 1fr; gap: 2rem; padding: 0 1rem; }
+            .product-card { padding: 2rem; }
+            .section-title { font-size: 2rem; }
+            .section-subtitle { font-size: 1.1rem; }
+            .services-list { grid-template-columns: 1fr; }
+            .footer-links { flex-wrap: wrap; gap: 1rem; }
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
         }
     </style>
 </head>

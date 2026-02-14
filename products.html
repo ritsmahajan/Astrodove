@@ -281,13 +281,40 @@
         }
         
         @media (max-width: 768px) {
-            .products-grid {
-                grid-template-columns: 1fr;
+            header { padding: 1rem 3%; }
+            .logo-img { height: 50px; }
+            nav { display: none; }
+            nav.active { 
+                display: block; 
+                position: fixed; 
+                top: 80px; 
+                left: 0; 
+                right: 0; 
+                background: white; 
+                padding: 2rem; 
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
             }
-            .filter-section {
-                flex-direction: column;
-                align-items: flex-start;
-            }
+            nav.active ul { flex-direction: column; gap: 1.5rem; text-align: center; }
+            .page-hero { margin-top: 80px; padding: 4rem 3% 2rem; }
+            .page-hero h1 { font-size: 2.5rem; }
+            .page-hero p { font-size: 1.2rem; }
+            .products-section { padding: 3rem 3%; }
+            .products-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .product-card { margin: 0; }
+            .product-image { height: 250px; font-size: 4rem; }
+            .product-info { padding: 2rem 1.5rem; }
+            .product-title { font-size: 1.8rem; }
+            .product-description { font-size: 1rem; min-height: auto; }
+            .product-price { font-size: 1.5rem; }
+            .product-btn { padding: 0.7rem 1.5rem; font-size: 0.9rem; }
+            .filter-section { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .filter-buttons { width: 100%; justify-content: flex-start; overflow-x: auto; }
+            .filter-btn { font-size: 0.85rem; padding: 0.6rem 1.2rem; white-space: nowrap; }
+            .cta-section { padding: 4rem 3%; }
+            .cta-section h2 { font-size: 2rem; }
+            .cta-section p { font-size: 1.1rem; }
+            .cta-button { padding: 1rem 2rem; font-size: 1rem; }
+            .footer-links { flex-wrap: wrap; gap: 1rem; }
         }
     </style>
 </head>
