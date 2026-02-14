@@ -551,9 +551,64 @@
     </footer>
 
     <script>
+        // Load products from admin panel
+        function loadAdminProducts() {
+            const adminProducts = JSON.parse(localStorage.getItem('astrodove_products')) || [];
+            const productsGrid = document.querySelector('.products-grid');
+            
+            if (adminProducts.length > 0) {
+                // Clear existing products except the grid
+                const existingProducts = productsGrid.innerHTML;
+                
+                // Add admin products
+                adminProducts.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.setAttribute('data-category', product.category);
+                    
+                    const benefitsHTML = product.benefits && product.benefits.length > 0 
+                        ? `<ul class="product-benefits">${product.benefits.map(b => `<li>${b}</li>`).join('')}</ul>`
+                        : '';
+                    
+                    productCard.innerHTML = `
+                        <div class="product-image">
+                            <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="product-info">
+                            ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                            <h3>${product.name}</h3>
+                            <p class="product-category">${getCategoryName(product.category)}</p>
+                            <p class="product-description">${product.description}</p>
+                            ${benefitsHTML}
+                            <div class="product-footer">
+                                <span class="product-price">₹${product.price}</span>
+                                <a href="contact.html" class="product-btn">Inquire Now</a>
+                            </div>
+                        </div>
+                    `;
+                    
+                    productsGrid.appendChild(productCard);
+                });
+            }
+        }
+
+        function getCategoryName(category) {
+            const categories = {
+                'healing': 'Healing Crystals',
+                'protection': 'Protection Stones',
+                'abundance': 'Abundance & Prosperity',
+                'love': 'Love & Relationships',
+                'clarity': 'Clarity & Focus',
+                'chakra': 'Chakra Stones'
+            };
+            return categories[category] || category;
+        }
+
+        // Load admin products on page load
+        window.addEventListener('DOMContentLoaded', loadAdminProducts);
+
         // Filter functionality
         const filterButtons = document.querySelectorAll('.filter-btn');
-        const productCards = document.querySelectorAll('.product-card');
 
         filterButtons.forEach(button => {
             button.addEventListener('click', () => {
@@ -563,6 +618,7 @@
                 button.classList.add('active');
 
                 const filterValue = button.getAttribute('data-filter');
+                const productCards = document.querySelectorAll('.product-card');
 
                 productCards.forEach(card => {
                     if (filterValue === 'all') {
