@@ -131,7 +131,7 @@
                     <div class="icon">📧</div>
                     <div>
                         <h3>Email</h3>
-                        <p>info@astrodove.com</p>
+                        <p>ritsmahajan23@outlook.com</p>
                     </div>
                 </div>
 
@@ -152,7 +152,7 @@
                 </div>
 
                 <div class="info-item">
-                    <div class="icon">🌐</div>
+                    <div class="icon">🌍</div>
                     <div>
                         <h3>Online Sessions</h3>
                         <p>Available worldwide via video call</p>
@@ -169,7 +169,13 @@
                     <p style="color: var(--text-muted); font-size: 1.1rem;">Per consultation session (60 minutes)</p>
                 </div>
 
-                <form id="contactForm">
+                <form id="contactForm" action="https://formsubmit.co/ritsmahajan23@outlook.com" method="POST">
+                    <!-- FormSubmit Configuration -->
+                    <input type="hidden" name="_subject" value="New Astrodove Consultation Booking">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="text" name="_honey" style="display:none">
+                    
                     <div class="form-group">
                         <label for="name">Full Name *</label>
                         <input type="text" id="name" name="name" required>
@@ -206,12 +212,12 @@
                         <textarea id="message" name="message" placeholder="Tell us about your spiritual journey and what you're seeking..."></textarea>
                     </div>
 
-                    <button type="submit" class="submit-btn">Proceed to Payment</button>
+                    <button type="submit" class="submit-btn">Submit Booking Request</button>
                 </form>
 
                 <div class="success-message" id="successMessage">
                     <h3 style="margin-bottom: 1rem;">✓ Booking Request Submitted!</h3>
-                    <p>Thank you for your interest. We have saved your information and will contact you shortly to confirm your appointment and share payment details.</p>
+                    <p>Thank you for your interest. We have received your booking request and will contact you shortly to confirm your appointment.</p>
                 </div>
             </div>
         </div>
@@ -230,41 +236,9 @@
     </footer>
 
     <script>
-        // Form submission with localStorage saving
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Collect form data
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                service: document.getElementById('service').value,
-                message: document.getElementById('message').value,
-                timestamp: new Date().toISOString(),
-                amount: 2400,
-                status: 'pending_payment'
-            };
-            
-            // Save to localStorage
-            let bookings = JSON.parse(localStorage.getItem('astrodove_bookings') || '[]');
-            bookings.push(formData);
-            localStorage.setItem('astrodove_bookings', JSON.stringify(bookings));
-            
-            // Show success message
-            document.getElementById('contactForm').style.display = 'none';
-            document.getElementById('successMessage').style.display = 'block';
-            
-            // Optional: Send to a backend server
-            // fetch('/api/bookings', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(formData)
-            // });
-            
-            // Scroll to success message
-            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth' });
-        });
+        // Form will be submitted directly to FormSubmit service
+        // The first submission will require email verification
+        // After that, all form submissions will be sent to ritsmahajan23@outlook.com
     </script>
 </body>
 </html>
