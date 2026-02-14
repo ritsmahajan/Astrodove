@@ -7,9 +7,9 @@ define('DB_USER', 'your_database_username');
 define('DB_PASS', 'your_database_password');
 define('DB_NAME', 'astrodove_db');
 
-// Admin credentials (change these!)
-define('ADMIN_USERNAME', 'astrodove_admin');
-define('ADMIN_PASSWORD_HASH', password_hash('Astro@2026!', PASSWORD_DEFAULT));
+// Admin credentials (SECURE - DO NOT SHARE!)
+define('ADMIN_USERNAME', 'rits_astrodove');
+define('ADMIN_PASSWORD_HASH', password_hash('lB*Wkq#4rFJFGJrN', PASSWORD_DEFAULT));
 
 // Create database connection
 function getDBConnection() {
