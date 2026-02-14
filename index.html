@@ -402,6 +402,236 @@
             cursor: pointer;
         }
 
+        /* Crystal Banner Styles */
+        .crystal-banner {
+            position: fixed;
+            top: 90px;
+            left: 0;
+            right: 0;
+            z-index: 99;
+            background: linear-gradient(135deg, #9b59b6, #8e44ad, #6c3483);
+            padding: 1rem 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+            animation: slideDown 0.6s ease-out;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .crystal-banner-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex: 1;
+        }
+
+        .crystal-banner-icon {
+            font-size: 2.5rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .crystal-banner-text h3 {
+            font-family: 'Cinzel', serif;
+            color: white;
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+            letter-spacing: 2px;
+        }
+
+        .crystal-banner-text p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .crystal-banner-btn {
+            padding: 0.7rem 2rem;
+            background: white;
+            color: #8e44ad;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .crystal-banner-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        .crystal-banner-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .crystal-banner-close:hover {
+            opacity: 1;
+        }
+
+        .crystal-banner.hidden {
+            display: none;
+        }
+
+        .hero.with-banner {
+            margin-top: 150px;
+        }
+
+        /* Latest Products Section */
+        .latest-products {
+            position: relative;
+            z-index: 1;
+            padding: 6rem 5%;
+            background: white;
+        }
+
+        .latest-products .section-title {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .latest-products .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 4rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--primary-light);
+            border-radius: 20px;
+            border: 2px solid var(--border-gold);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(201, 160, 82, 0.3);
+            border-color: var(--accent-gold);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, #e8d5f2, #d4c5e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(155, 89, 182, 0.2) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-deep-gold));
+            color: white;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .product-info h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.6rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .product-description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            min-height: 80px;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1rem;
+            border-top: 2px solid var(--border-gold);
+        }
+
+        .product-price {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-deep-gold);
+        }
+
+        .product-btn {
+            padding: 0.7rem 1.5rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-deep-gold));
+            color: white;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .product-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(201, 160, 82, 0.4);
+        }
+
+        .view-all-products {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
         @media (max-width: 768px) {
             .mobile-menu-toggle { display: block; }
             nav {
@@ -417,6 +647,27 @@
             nav ul { flex-direction: column; gap: 1.5rem; }
             .hero h1 { font-size: 2.5rem; }
             .hero-logo { width: 180px; }
+            .crystal-banner {
+                padding: 1rem 3%;
+            }
+            .crystal-banner-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+            .crystal-banner-text h3 {
+                font-size: 1.1rem;
+            }
+            .crystal-banner-text p {
+                font-size: 0.9rem;
+            }
+            .crystal-banner-btn {
+                font-size: 0.9rem;
+                padding: 0.6rem 1.5rem;
+            }
+            .hero.with-banner {
+                margin-top: 180px;
+            }
         }
     </style>
 </head>
@@ -434,13 +685,27 @@
             <ul>
                 <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="services.html">Services</a></li>
+                <li><a href="products.html">Products</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
         </nav>
     </header>
 
-    <section class="hero">
+    <!-- Crystal Healing Promotion Banner -->
+    <div class="crystal-banner" id="crystalBanner">
+        <div class="crystal-banner-content">
+            <span class="crystal-banner-icon">💎</span>
+            <div class="crystal-banner-text">
+                <h3>Discover Crystal Healing</h3>
+                <p>Authentic crystals for balance, harmony & spiritual transformation</p>
+            </div>
+        </div>
+        <a href="products.html" class="crystal-banner-btn">Shop Now</a>
+        <button class="crystal-banner-close" onclick="closeCrystalBanner()" aria-label="Close banner">×</button>
+    </div>
+
+    <section class="hero with-banner">
         <div class="hero-content">
             <img src="Astrodove_logo_transparent.png" alt="Astrodove" class="hero-logo">
             <h1>Astrodove</h1>
@@ -474,6 +739,81 @@
                 <h3>Holistic Approach</h3>
                 <p>We harmonize multiple spiritual sciences to provide comprehensive insights and transformation.</p>
             </div>
+        </div>
+    </section>
+
+    <section class="latest-products">
+        <h2 class="section-title">Latest Crystal Collection</h2>
+        <p class="section-subtitle">Authentic healing crystals carefully selected for their energy and beauty</p>
+        
+        <div class="products-grid">
+            <!-- Product Card 1 -->
+            <div class="product-card">
+                <div class="product-image">
+                    💎
+                </div>
+                <div class="product-info">
+                    <span class="product-badge">NEW ARRIVAL</span>
+                    <h3>Amethyst Cluster</h3>
+                    <p class="product-description">Premium quality amethyst cluster for meditation, stress relief, and spiritual awakening. Enhances intuition and inner peace.</p>
+                    <div class="product-footer">
+                        <span class="product-price">₹2,500</span>
+                        <a href="contact.html" class="product-btn">Inquire</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 2 -->
+            <div class="product-card">
+                <div class="product-image">
+                    🔮
+                </div>
+                <div class="product-info">
+                    <span class="product-badge">POPULAR</span>
+                    <h3>Rose Quartz Heart</h3>
+                    <p class="product-description">Beautiful rose quartz heart crystal. Perfect for attracting love, compassion, and emotional healing. Opens the heart chakra.</p>
+                    <div class="product-footer">
+                        <span class="product-price">₹1,800</span>
+                        <a href="contact.html" class="product-btn">Inquire</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 3 -->
+            <div class="product-card">
+                <div class="product-image">
+                    ✨
+                </div>
+                <div class="product-info">
+                    <span class="product-badge">BESTSELLER</span>
+                    <h3>Clear Quartz Point</h3>
+                    <p class="product-description">Master healing crystal that amplifies energy and intentions. Ideal for manifestation, clarity, and energy cleansing.</p>
+                    <div class="product-footer">
+                        <span class="product-price">₹1,500</span>
+                        <a href="contact.html" class="product-btn">Inquire</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Card 4 -->
+            <div class="product-card">
+                <div class="product-image">
+                    🌙
+                </div>
+                <div class="product-info">
+                    <span class="product-badge">LIMITED</span>
+                    <h3>Black Tourmaline</h3>
+                    <p class="product-description">Powerful protection stone that shields against negative energy. Grounding and purifying for your sacred space.</p>
+                    <div class="product-footer">
+                        <span class="product-price">₹2,200</span>
+                        <a href="contact.html" class="product-btn">Inquire</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="view-all-products">
+            <a href="products.html" class="cta-button">View All Crystals</a>
         </div>
     </section>
 
@@ -523,6 +863,28 @@
         document.addEventListener('click', (e) => {
             if (!e.target.closest('header')) mainNav.classList.remove('active');
         });
+
+        // Crystal Banner Close Function
+        function closeCrystalBanner() {
+            const banner = document.getElementById('crystalBanner');
+            const hero = document.querySelector('.hero');
+            banner.style.animation = 'slideUp 0.4s ease-out';
+            setTimeout(() => {
+                banner.classList.add('hidden');
+                hero.classList.remove('with-banner');
+                hero.style.marginTop = '90px';
+            }, 400);
+        }
+
+        // Add slideUp animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideUp {
+                from { transform: translateY(0); opacity: 1; }
+                to { transform: translateY(-100%); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
     </script>
 </body>
 </html>

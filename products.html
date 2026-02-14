@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crystal Products - Astrodove</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-cream: #f5f1e8;
+            --primary-light: #faf8f3;
+            --accent-gold: #c9a052;
+            --accent-deep-gold: #a67c3a;
+            --accent-dove: #8a7b6d;
+            --text-dark: #3d3528;
+            --text-muted: #6b5d4f;
+            --border-gold: rgba(201, 160, 82, 0.3);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cormorant Garamond', serif; background: var(--primary-cream); color: var(--text-dark); }
+        
+        header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(250, 248, 243, 0.98); border-bottom: 2px solid var(--border-gold);
+        }
+        .logo-img { height: 70px; }
+        nav ul { list-style: none; display: flex; gap: 2.5rem; }
+        nav a { font-family: 'Cinzel', serif; color: var(--text-dark); text-decoration: none; font-size: 0.95rem; letter-spacing: 1px; }
+        nav a:hover, nav a.active { color: var(--accent-gold); }
+        
+        .page-hero {
+            margin-top: 90px; padding: 6rem 5% 3rem; text-align: center;
+            background: linear-gradient(135deg, #faf8f3 0%, #f5f1e8 50%, #ede7dc 100%);
+        }
+        .page-hero h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; color: var(--accent-gold); margin-bottom: 1rem; }
+        .page-hero p { font-size: 1.3rem; color: var(--text-muted); }
+        
+        .products-section { padding: 5rem 5%; background: white; }
+        
+        .filter-section {
+            max-width: 1400px; margin: 0 auto 3rem;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 2rem;
+        }
+        
+        .filter-buttons {
+            display: flex; gap: 1rem; flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            background: var(--primary-light);
+            border: 2px solid var(--border-gold);
+            color: var(--text-dark);
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-deep-gold));
+            color: white;
+            border-color: var(--accent-gold);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            background: var(--primary-light);
+            border-radius: 20px;
+            border: 2px solid var(--border-gold);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(201, 160, 82, 0.3);
+            border-color: var(--accent-gold);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, #e8d5f2, #d4c5e0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(155, 89, 182, 0.2) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        }
+        
+        .product-info {
+            padding: 2rem;
+        }
+        
+        .product-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-deep-gold));
+            color: white;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+        
+        .product-info h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.7rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.8rem;
+            letter-spacing: 1px;
+        }
+        
+        .product-category {
+            font-size: 0.95rem;
+            color: var(--accent-dove);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .product-description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            min-height: 90px;
+        }
+        
+        .product-benefits {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-benefits li {
+            font-size: 1rem;
+            color: var(--text-dark);
+            padding: 0.3rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .product-benefits li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--border-gold);
+        }
+        
+        .product-price {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-deep-gold);
+        }
+        
+        .product-btn {
+            padding: 0.8rem 1.8rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-deep-gold));
+            color: white;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .product-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(201, 160, 82, 0.4);
+        }
+        
+        .cta-section {
+            padding: 5rem 5%;
+            text-align: center;
+            background: linear-gradient(135deg, #faf8f3 0%, #f5f1e8 50%, #ede7dc 100%);
+        }
+        
+        .cta-section h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-deep-gold));
+            color: white;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            letter-spacing: 2px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(201, 160, 82, 0.5);
+        }
+        
+        footer {
+            padding: 3rem 5%;
+            text-align: center;
+            background: var(--accent-dove);
+            color: white;
+        }
+        
+        footer p {
+            color: var(--primary-cream);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: var(--primary-light);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+        }
+        
+        @media (max-width: 768px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            .filter-section {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Astrodove_logo_transparent.png" alt="Astrodove Logo" class="logo-img">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="page-hero">
+        <h1>Sacred Crystal Collection</h1>
+        <p>Authentic healing crystals ethically sourced and energetically cleansed</p>
+    </section>
+
+    <section class="products-section">
+        <div class="filter-section">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Crystals</button>
+                <button class="filter-btn" data-filter="healing">Healing</button>
+                <button class="filter-btn" data-filter="protection">Protection</button>
+                <button class="filter-btn" data-filter="abundance">Abundance</button>
+                <button class="filter-btn" data-filter="love">Love</button>
+            </div>
+        </div>
+
+        <div class="products-grid">
+            <!-- Product 1: Amethyst -->
+            <div class="product-card" data-category="healing">
+                <div class="product-image">
+                    💎
+                </div>
+                <div class="product-info">
+                    <span class="product-badge">NEW ARRIVAL</span>
+                    <h3>Amethyst Cluster</h3>
+                    <p class="product-category">Healing & Spiritual Growth</p>
+                    <p class="product-description">Premium quality natural amethyst cluster from Brazil. Known as the "Stone of Spirituality," it promotes calm, balance, and peace.</p>
+                    <ul class="product-benefits">
+                        <li>Enhances intuition & meditation</li>
+                        <li>Relieves stress & anxiety</li>
+                        <li>Opens third eye chakra</li>
+                    </ul>
+                    <div class="product-footer">
+                        <span class="product-price">₹2,500</span>
+                        <a href="contact.html" class="product-btn">Inquire Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 2: Rose Quartz -->
+            <div class="product-card" data-category="love">
+                <div class="product-image">
+                    💗
+                </div>
+                <div class="product-info">
+                    <span class="product-badge">POPULAR</span>
+                    <h3>Rose Quartz Heart</h3>
+                    <p class="product-category">Love & Compassion</p>
+                    <p class="product-description">Beautiful hand-carved rose quartz heart. The ultimate stone of unconditional love and infinite peace.</p>
+                    <ul class="product-benefits">
+                        <li>Attracts love & romance</li>
+                        <li>Heals emotional wounds</li>
+                        <li>Opens heart chakra</li>
+                    </ul>
+                    <div class="product-footer">
+                        <span class="product-price">₹1,800</span>
+                        <a href="contact.html" class="product-btn">Inquire Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 3: Clear Quartz -->
+            <div class="product-card" data-category="healing">
+                <div class="product-image">
+                    ✨
+                </div>
+                <div class="product-info">
+                    <span class="product-badge">BESTSELLER</span>
+                    <h3>Clear Quartz Point</h3>
+                    <p class="product-category">Master Healer</p>
+                    <p class="product-description">Natural clear quartz crystal point. The most powerful healing and energy amplifier on the planet.</p>
+                    <ul class="product-benefits">
+                        <li>Amplifies intentions</li>
+                        <li>Clears mental fog</li>
+                        <li>Balances all chakras</li>
+                    </ul>
+                    <div class="product-footer">
+                        <span class="product-price">₹1,500</span>
+                        <a href="contact.html" class="product-btn">Inquire Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 4: Black Tourmaline -->
+            <div class="product-card" data-category="protection">
+                <div class="product-image">
+                    🛡️
+                </div>
+                <div class="product-info">
+                    <span class="product-badge">LIMITED STOCK</span>
+                    <h3>Black Tourmaline</h3>
+                    <p class="product-category">Protection & Grounding</p>
+                    <p class="product-description">Premium black tourmaline raw stone. Powerful protection against negative energy and electromagnetic radiation.</p>
+                    <ul class="product-benefits">
+                        <li>Shields from negativity</li>
+                        <li>Grounds excess energy</li>
+                        <li>Purifies environment</li>
+                    </ul>
+                    <div class="product-footer">
+                        <span class="product-price">₹2,200</span>
+                        <a href="contact.html" class="product-btn">Inquire Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 5: Citrine -->
+            <div class="product-card" data-category="abundance">
+                <div class="product-image">
+                    🌟
+                </div>
+                <div class="product-info">
+                    <span class="product-badge">HOT SELLER</span>
+                    <h3>Natural Citrine</h3>
+                    <p class="product-category">Abundance & Success</p>
+                    <p class="product-description">Genuine natural citrine crystal. Known as the "Merchant's Stone" for attracting wealth and prosperity.</p>
+                    <ul class="product-benefits">
+                        <li>Attracts abundance</li>
+                        <li>Boosts confidence</li>
+                        <li>Manifests goals</li>
+                    </ul>
+                    <div class="product-footer">
+                        <span class="product-price">₹3,200</span>
+                        <a href="contact.html" class="product-btn">Inquire Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 6: Selenite -->
+            <div class="product-card" data-category="healing">
+                <div class="product-image">
+                    🌙
+                </div>
+                <div class="product-info">
+                    <span class="product-badge">EXCLUSIVE</span>
+                    <h3>Selenite Tower</h3>
+                    <p class="product-category">Cleansing & Clarity</p>
+                    <p class="product-description">Pure white selenite tower. Self-cleansing stone that brings mental clarity and deep peace.</p>
+                    <ul class="product-benefits">
+                        <li>Cleanses other crystals</li>
+                        <li>Clears energy blocks</li>
+                        <li>Connects to higher realms</li>
+                    </ul>
+                    <div class="product-footer">
+                        <span class="product-price">₹1,900</span>
+                        <a href="contact.html" class="product-btn">Inquire Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 7: Green Aventurine -->
+            <div class="product-card" data-category="abundance">
+                <div class="product-image">
+                    🍀
+                </div>
+                <div class="product-info">
+                    <span class="product-badge">GOOD LUCK</span>
+                    <h3>Green Aventurine</h3>
+                    <p class="product-category">Luck & Opportunity</p>
+                    <p class="product-description">Sparkling green aventurine stone. The "Stone of Opportunity" that brings good fortune and prosperity.</p>
+                    <ul class="product-benefits">
+                        <li>Attracts luck & success</li>
+                        <li>Heals heart chakra</li>
+                        <li>Brings optimism</li>
+                    </ul>
+                    <div class="product-footer">
+                        <span class="product-price">₹1,400</span>
+                        <a href="contact.html" class="product-btn">Inquire Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product 8: Labradorite -->
+            <div class="product-card" data-category="protection">
+                <div class="product-image">
+                    🔮
+                </div>
+                <div class="product-info">
+                    <span class="product-badge">MYSTICAL</span>
+                    <h3>Labradorite Palm Stone</h3>
+                    <p class="product-category">Magic & Transformation</p>
+                    <p class="product-description">Iridescent labradorite with stunning flash. Stone of transformation and magic that awakens mystical abilities.</p>
+                    <ul class="product-benefits">
+                        <li>Enhances psychic abilities</li>
+                        <li>Protects aura</li>
+                        <li>Facilitates transformation</li>
+                    </ul>
+                    <div class="product-footer">
+                        <span class="product-price">₹2,800</span>
+                        <a href="contact.html" class="product-btn">Inquire Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Need Help Choosing Your Crystal?</h2>
+        <p>Book a personalized consultation to discover which crystals align with your energy</p>
+        <a href="contact.html" class="cta-button">Schedule Consultation</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Astrodove. All rights reserved.</p>
+        <p>Guided by the stars, grounded in wisdom.</p>
+        <p>📱 Call/WhatsApp: +91 7507303192</p>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="products.html">Products</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const productCards = document.querySelectorAll('.product-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+
+                productCards.forEach(card => {
+                    if (filterValue === 'all') {
+                        card.style.display = 'block';
+                    } else {
+                        const category = card.getAttribute('data-category');
+                        if (category === filterValue) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
