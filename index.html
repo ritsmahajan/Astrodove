@@ -652,70 +652,9 @@
         <h2 class="section-title">Latest Crystal Collection</h2>
         <p class="section-subtitle">Authentic healing crystals carefully selected for their energy and beauty</p>
         
-        <div class="products-grid">
-            <!-- Product Card 1 -->
-            <div class="product-card">
-                <div class="product-image">
-                    💎
-                </div>
-                <div class="product-info">
-                    <span class="product-badge">NEW ARRIVAL</span>
-                    <h3>Amethyst Cluster</h3>
-                    <p class="product-description">Premium quality amethyst cluster for meditation, stress relief, and spiritual awakening. Enhances intuition and inner peace.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹2,500</span>
-                        <a href="contact.html" class="product-btn">Inquire</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product Card 2 -->
-            <div class="product-card">
-                <div class="product-image">
-                    🔮
-                </div>
-                <div class="product-info">
-                    <span class="product-badge">POPULAR</span>
-                    <h3>Rose Quartz Heart</h3>
-                    <p class="product-description">Beautiful rose quartz heart crystal. Perfect for attracting love, compassion, and emotional healing. Opens the heart chakra.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹1,800</span>
-                        <a href="contact.html" class="product-btn">Inquire</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product Card 3 -->
-            <div class="product-card">
-                <div class="product-image">
-                    ✨
-                </div>
-                <div class="product-info">
-                    <span class="product-badge">BESTSELLER</span>
-                    <h3>Clear Quartz Point</h3>
-                    <p class="product-description">Master healing crystal that amplifies energy and intentions. Ideal for manifestation, clarity, and energy cleansing.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹1,500</span>
-                        <a href="contact.html" class="product-btn">Inquire</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Product Card 4 -->
-            <div class="product-card">
-                <div class="product-image">
-                    🌙
-                </div>
-                <div class="product-info">
-                    <span class="product-badge">LIMITED</span>
-                    <h3>Black Tourmaline</h3>
-                    <p class="product-description">Powerful protection stone that shields against negative energy. Grounding and purifying for your sacred space.</p>
-                    <div class="product-footer">
-                        <span class="product-price">₹2,200</span>
-                        <a href="contact.html" class="product-btn">Inquire</a>
-                    </div>
-                </div>
-            </div>
+        <div class="products-grid" id="homeProductsGrid">
+            <!-- Products will be loaded dynamically from admin panel -->
+            <!-- Shows latest 4 products added -->
         </div>
 
         <div class="view-all-products">
@@ -769,6 +708,53 @@
         document.addEventListener('click', (e) => {
             if (!e.target.closest('header')) mainNav.classList.remove('active');
         });
+
+        // Load latest 4 products on homepage
+        async function loadHomeProducts() {
+            try {
+                // Try loading from Netlify
+                const response = await fetch('/.netlify/functions/products');
+                const data = await response.json();
+                
+                if (data.success && data.products.length > 0) {
+                    displayHomeProducts(data.products.slice(0, 4));
+                }
+            } catch (error) {
+                // Fallback to localStorage
+                const localProducts = JSON.parse(localStorage.getItem('astrodove_products')) || [];
+                if (localProducts.length > 0) {
+                    displayHomeProducts(localProducts.slice(0, 4));
+                }
+            }
+        }
+
+        function displayHomeProducts(products) {
+            const grid = document.getElementById('homeProductsGrid');
+            if (!grid) return;
+
+            products.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;">
+                    </div>
+                    <div class="product-info">
+                        ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                        <h3>${product.name}</h3>
+                        <p class="product-description">${product.description.substring(0, 120)}...</p>
+                        <div class="product-footer">
+                            <span class="product-price">₹${product.price}</span>
+                            <a href="contact.html" class="product-btn">Inquire</a>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Load products when page loads
+        loadHomeProducts();
     </script>
 </body>
 </html>
