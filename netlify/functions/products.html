@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crystal Products - Astrodove</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-cream: #f5f1e8;
+            --primary-light: #faf8f3;
+            --accent-gold: #c9a052;
+            --accent-deep-gold: #a67c3a;
+            --accent-dove: #8a7b6d;
+            --text-dark: #3d3528;
+            --text-muted: #6b5d4f;
+            --border-gold: rgba(201, 160, 82, 0.3);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cormorant Garamond', serif; background: var(--primary-cream); color: var(--text-dark); }
+        
+        header {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(250, 248, 243, 0.98); border-bottom: 2px solid var(--border-gold);
+        }
+        .logo-img { height: 70px; }
+        nav ul { list-style: none; display: flex; gap: 2.5rem; }
+        nav a { font-family: 'Cinzel', serif; color: var(--text-dark); text-decoration: none; font-size: 0.95rem; letter-spacing: 1px; }
+        nav a:hover, nav a.active { color: var(--accent-gold); }
+        
+        .page-hero {
+            margin-top: 90px; padding: 6rem 5% 3rem; text-align: center;
+            background: linear-gradient(135deg, #faf8f3 0%, #f5f1e8 50%, #ede7dc 100%);
+        }
+        .page-hero h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; color: var(--accent-gold); margin-bottom: 1rem; }
+        .page-hero p { font-size: 1.3rem; color: var(--text-muted); }
+        
+        .products-section { padding: 5rem 5%; background: white; }
+        
+        .filter-section {
+            max-width: 1400px; margin: 0 auto 3rem;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 2rem;
+        }
+        
+        .filter-buttons {
+            display: flex; gap: 1rem; flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            background: var(--primary-light);
+            border: 2px solid var(--border-gold);
+            color: var(--text-dark);
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-deep-gold));
+            color: white;
+            border-color: var(--accent-gold);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            background: var(--primary-light);
+            border-radius: 20px;
+            border: 2px solid var(--border-gold);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(201, 160, 82, 0.3);
+            border-color: var(--accent-gold);
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 350px;
+            background: linear-gradient(135deg, #faf8f3, #f5f1e8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: transparent;
+        }
+        
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, rgba(201, 160, 82, 0.15) 0%, transparent 70%);
+            animation: pulse 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        }
+        
+        .product-info {
+            padding: 2rem;
+        }
+        
+        .product-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-deep-gold));
+            color: white;
+            font-family: 'Cinzel', serif;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+        
+        .product-info h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.7rem;
+            color: var(--accent-gold);
+            margin-bottom: 0.8rem;
+            letter-spacing: 1px;
+        }
+        
+        .product-category {
+            font-size: 0.95rem;
+            color: var(--accent-dove);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        
+        .product-description {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            min-height: 90px;
+        }
+        
+        .product-benefits {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-benefits li {
+            font-size: 1rem;
+            color: var(--text-dark);
+            padding: 0.3rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .product-benefits li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 1.5rem;
+            border-top: 2px solid var(--border-gold);
+        }
+        
+        .product-price {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-deep-gold);
+        }
+        
+        .product-btn {
+            padding: 0.8rem 1.8rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-deep-gold));
+            color: white;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .product-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(201, 160, 82, 0.4);
+        }
+        
+        .cta-section {
+            padding: 5rem 5%;
+            text-align: center;
+            background: linear-gradient(135deg, #faf8f3 0%, #f5f1e8 50%, #ede7dc 100%);
+        }
+        
+        .cta-section h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-deep-gold));
+            color: white;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            letter-spacing: 2px;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(201, 160, 82, 0.5);
+        }
+        
+        footer {
+            padding: 3rem 5%;
+            text-align: center;
+            background: var(--accent-dove);
+            color: white;
+        }
+        
+        footer p {
+            color: var(--primary-cream);
+            margin-bottom: 1rem;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+        
+        .footer-links a {
+            color: var(--primary-light);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+        }
+        
+        @media (max-width: 768px) {
+            header { padding: 1rem 3%; }
+            .logo-img { height: 50px; }
+            nav { display: none; }
+            nav.active { 
+                display: block; 
+                position: fixed; 
+                top: 80px; 
+                left: 0; 
+                right: 0; 
+                background: white; 
+                padding: 2rem; 
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
+            }
+            nav.active ul { flex-direction: column; gap: 1.5rem; text-align: center; }
+            .page-hero { margin-top: 80px; padding: 4rem 3% 2rem; }
+            .page-hero h1 { font-size: 2.5rem; }
+            .page-hero p { font-size: 1.2rem; }
+            .products-section { padding: 3rem 3%; }
+            .products-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .product-card { margin: 0; }
+            .product-image { height: 250px; font-size: 4rem; }
+            .product-info { padding: 2rem 1.5rem; }
+            .product-title { font-size: 1.8rem; }
+            .product-description { font-size: 1rem; min-height: auto; }
+            .product-price { font-size: 1.5rem; }
+            .product-btn { padding: 0.7rem 1.5rem; font-size: 0.9rem; }
+            .filter-section { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .filter-buttons { width: 100%; justify-content: flex-start; overflow-x: auto; }
+            .filter-btn { font-size: 0.85rem; padding: 0.6rem 1.2rem; white-space: nowrap; }
+            .cta-section { padding: 4rem 3%; }
+            .cta-section h2 { font-size: 2rem; }
+            .cta-section p { font-size: 1.1rem; }
+            .cta-button { padding: 1rem 2rem; font-size: 1rem; }
+            .footer-links { flex-wrap: wrap; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <a href="index.html">
+                <img src="Astrodove_logo_transparent.png" alt="Astrodove Logo" class="logo-img">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="page-hero">
+        <h1>Sacred Crystal Collection</h1>
+        <p>Authentic healing crystals ethically sourced and energetically cleansed</p>
+    </section>
+
+    <section class="products-section">
+        <div class="filter-section">
+            <div class="filter-buttons">
+                <button class="filter-btn active" data-filter="all">All Crystals</button>
+                <button class="filter-btn" data-filter="healing">Healing</button>
+                <button class="filter-btn" data-filter="protection">Protection</button>
+                <button class="filter-btn" data-filter="abundance">Abundance</button>
+                <button class="filter-btn" data-filter="love">Love</button>
+            </div>
+        </div>
+
+        <div class="products-grid">
+            <!-- Products will be loaded dynamically from admin panel -->
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Need Help Choosing Your Crystal?</h2>
+        <p>Book a personalized consultation to discover which crystals align with your energy</p>
+        <a href="contact.html" class="cta-button">Schedule Consultation</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Astrodove. All rights reserved.</p>
+        <p>Guided by the stars, grounded in wisdom.</p>
+        <p>📱 Call/WhatsApp: +91 7507303192</p>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="products.html">Products</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </footer>
+
+    <script>
+        // Load products from localStorage (added via admin panel)
+        function loadAdminProducts() {
+            const adminProducts = JSON.parse(localStorage.getItem('astrodove_products')) || [];
+            const productsGrid = document.querySelector('.products-grid');
+            
+            if (adminProducts.length > 0) {
+                // Add admin products
+                adminProducts.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.setAttribute('data-category', product.category);
+                    
+                    const benefitsHTML = product.benefits && product.benefits.length > 0 
+                        ? `<ul class="product-benefits">${product.benefits.map(b => `<li>${b}</li>`).join('')}</ul>`
+                        : '';
+                    
+                    productCard.innerHTML = `
+                        <div class="product-image">
+                            <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="product-info">
+                            ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                            <h3>${product.name}</h3>
+                            <p class="product-category">${getCategoryName(product.category)}</p>
+                            <p class="product-description">${product.description}</p>
+                            ${benefitsHTML}
+                            <div class="product-footer">
+                                <span class="product-price">₹${product.price}</span>
+                                <a href="contact.html" class="product-btn">Inquire Now</a>
+                            </div>
+                        </div>
+                    `;
+                    
+                    productsGrid.appendChild(productCard);
+                });
+            }
+        }
+
+        function getCategoryName(category) {
+            const categories = {
+                'healing': 'Healing Crystals',
+                'protection': 'Protection Stones',
+                'abundance': 'Abundance & Prosperity',
+                'love': 'Love & Relationships',
+                'clarity': 'Clarity & Focus',
+                'chakra': 'Chakra Stones'
+            };
+            return categories[category] || category;
+        }
+
+        // Load admin products on page load
+        window.addEventListener('DOMContentLoaded', loadAdminProducts);
+
+        // Filter functionality
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                const filterValue = button.getAttribute('data-filter');
+                const productCards = document.querySelectorAll('.product-card');
+
+                productCards.forEach(card => {
+                    if (filterValue === 'all') {
+                        card.style.display = 'block';
+                    } else {
+                        const category = card.getAttribute('data-category');
+                        if (category === filterValue) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

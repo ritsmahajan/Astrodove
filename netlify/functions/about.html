@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Astrodove</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary-cream: #f5f1e8; --accent-gold: #c9a052; --text-dark: #3d3528; --border-gold: rgba(201, 160, 82, 0.3); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cormorant Garamond', serif; background: var(--primary-cream); color: var(--text-dark); }
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; background: rgba(250, 248, 243, 0.98); border-bottom: 2px solid var(--border-gold); }
+        .logo-img { height: 70px; }
+        nav ul { list-style: none; display: flex; gap: 2.5rem; }
+        nav a { font-family: 'Cinzel', serif; color: var(--text-dark); text-decoration: none; }
+        nav a:hover, nav a.active { color: var(--accent-gold); }
+        .page-hero { margin-top: 90px; padding: 6rem 5% 3rem; text-align: center; background: linear-gradient(135deg, #faf8f3 0%, #f5f1e8 50%, #ede7dc 100%); }
+        .page-hero h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; color: var(--accent-gold); }
+        .about-content { padding: 6rem 5%; background: white; }
+        .about-section { max-width: 1000px; margin: 0 auto 5rem; text-align: center; }
+        .about-section h2 { font-family: 'Cinzel', serif; font-size: 2.5rem; color: var(--accent-gold); margin-bottom: 2rem; }
+        .about-section p { font-size: 1.3rem; line-height: 2; margin-bottom: 1.5rem; }
+        .founder-section { padding: 6rem 5%; background: linear-gradient(135deg, #faf8f3 0%, #f5f1e8 50%, #ede7dc 100%); }
+        .founder-content { max-width: 1000px; margin: 0 auto; text-align: center; }
+        .founder-content h2 { font-family: 'Cinzel', serif; font-size: 3rem; color: var(--accent-gold); margin-bottom: 1rem; }
+        .founder-content .title { font-size: 1.5rem; color: #8a7b6d; font-style: italic; margin-bottom: 3rem; }
+        .founder-content p { font-size: 1.3rem; line-height: 2; margin-bottom: 1.5rem; }
+        .values-section { padding: 6rem 5%; background: white; }
+        .values-section h2 { font-family: 'Cinzel', serif; font-size: 3rem; color: var(--accent-gold); text-align: center; margin-bottom: 4rem; }
+        .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; max-width: 1200px; margin: 0 auto; }
+        .value-card { background: #faf8f3; padding: 3rem; border-radius: 15px; border: 2px solid var(--border-gold); text-align: center; transition: all 0.3s; }
+        .value-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(201, 160, 82, 0.2); }
+        .value-card .icon { font-size: 3.5rem; margin-bottom: 1.5rem; }
+        .value-card h3 { font-family: 'Cinzel', serif; font-size: 1.8rem; color: var(--accent-gold); margin-bottom: 1rem; }
+        .cta-section { padding: 6rem 5%; text-align: center; background: linear-gradient(135deg, #faf8f3 0%, #f5f1e8 50%, #ede7dc 100%); }
+        .cta-section h2 { font-family: 'Cinzel', serif; font-size: 3rem; color: var(--accent-gold); margin-bottom: 2rem; }
+        .cta-button { display: inline-block; padding: 1rem 3rem; background: linear-gradient(135deg, var(--accent-gold), #a67c3a); color: white; text-decoration: none; font-family: 'Cinzel', serif; font-size: 1.1rem; border-radius: 50px; }
+        footer { padding: 3rem 5%; text-align: center; background: #8a7b6d; color: white; }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; }
+        .footer-links a { color: #faf8f3; text-decoration: none; }
+        
+        @media (max-width: 768px) {
+            header { padding: 1rem 3%; }
+            .logo-img { height: 50px; }
+            nav { display: none; }
+            nav.active { 
+                display: block; 
+                position: fixed; 
+                top: 80px; 
+                left: 0; 
+                right: 0; 
+                background: white; 
+                padding: 2rem; 
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
+            }
+            nav.active ul { flex-direction: column; gap: 1.5rem; text-align: center; }
+            .page-hero { margin-top: 80px; padding: 4rem 3% 2rem; }
+            .page-hero h1 { font-size: 2.5rem; }
+            .page-hero p { font-size: 1.2rem; }
+            .about-content { padding: 4rem 3%; }
+            .about-section { margin-bottom: 3rem; }
+            .about-section h2 { font-size: 2rem; }
+            .about-section p { font-size: 1.1rem; }
+            .founder-section { padding: 4rem 3%; }
+            .founder-content h2 { font-size: 2.5rem; }
+            .founder-content .title { font-size: 1.3rem; }
+            .founder-content p { font-size: 1.1rem; }
+            .values-section { padding: 4rem 3%; }
+            .values-section h2 { font-size: 2.5rem; }
+            .values-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .value-card { padding: 2rem; }
+            .value-card h3 { font-size: 1.5rem; }
+            .cta-section { padding: 4rem 3%; }
+            .cta-section h2 { font-size: 2rem; }
+            .cta-section p { font-size: 1.1rem; }
+            .cta-button { padding: 1rem 2rem; font-size: 1rem; }
+            .footer-links { flex-wrap: wrap; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <a href="index.html"><img src="Astrodove_logo_transparent.png" alt="Astrodove Logo" class="logo-img"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html">Services</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="page-hero">
+        <h1>About Astrodove</h1>
+        <p style="font-size: 1.4rem; margin-top: 1rem;">A sanctuary for cosmic wisdom and spiritual transformation</p>
+    </section>
+
+    <section class="about-content">
+        <div class="about-section">
+            <h2>Our Mission</h2>
+            <p>Astrodove is a sacred space where ancient mystical sciences meet modern understanding. We bridge the timeless wisdom of astrology, numerology, energy healing, and sacred geometry to illuminate the path of self-discovery and divine alignment.</p>
+            <p>Through our comprehensive spiritual services, we guide seekers toward their highest potential, helping them understand their cosmic blueprint and manifest their soul's purpose.</p>
+        </div>
+    </section>
+
+    <section class="founder-section">
+        <div class="founder-content">
+            <h2>Rits Mahajan</h2>
+            <p class="title">Founder & Spiritual Guide</p>
+            <p>Rits Mahajan is a dedicated spiritual practitioner with years of experience in the mystical arts. With deep reverence for cosmic wisdom and an authentic connection to ancient traditions, Rits brings transformative guidance to every consultation.</p>
+            <p>Specializing in the harmonious integration of multiple spiritual sciences, Rits offers personalized insights that honor each individual's unique journey. Through compassionate guidance and profound understanding, Astrodove has become a trusted sanctuary for those seeking clarity, purpose, and spiritual alignment.</p>
+            <p>Rits believes that within each person lies a divine blueprint waiting to be discovered. Through the sacred arts of numerology, astrology, tarot, and energy healing, this blueprint can be revealed, empowering individuals to live in harmony with their true cosmic nature.</p>
+        </div>
+    </section>
+
+    <section class="values-section">
+        <h2>Our Core Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="icon">🌟</div>
+                <h3>Authenticity</h3>
+                <p>We honor ancient wisdom traditions with integrity and respect, offering genuine spiritual guidance rooted in time-tested practices.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon">💫</div>
+                <h3>Compassion</h3>
+                <p>Every soul's journey is unique. We provide personalized, compassionate guidance tailored to your individual path and circumstances.</p>
+            </div>
+            <div class="value-card">
+                <div class="icon">✨</div>
+                <h3>Transformation</h3>
+                <p>We facilitate profound spiritual transformation, helping you align with your highest purpose and manifest your soul's potential.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Begin Your Cosmic Journey</h2>
+        <p style="font-size: 1.3rem; margin-bottom: 3rem;">Connect with Rits Mahajan and discover the wisdom that awaits you</p>
+        <a href="contact.html" class="cta-button">Schedule Consultation</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Astrodove. All rights reserved.</p>
+        <p>📱 Call/WhatsApp: +91 7507303192</p>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="products.html">Products</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </footer>
+</body>
+</html>

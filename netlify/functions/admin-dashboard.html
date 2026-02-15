@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astrodove Admin - Product Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root {
+            --primary-cream: #f5f1e8;
+            --primary-light: #faf8f3;
+            --accent-gold: #c9a052;
+            --accent-deep-gold: #a67c3a;
+            --accent-dove: #8a7b6d;
+            --text-dark: #3d3528;
+            --text-muted: #6b5d4f;
+            --border-gold: rgba(201, 160, 82, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            background: var(--primary-cream);
+            color: var(--text-dark);
+            padding: 2rem;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; }
+        
+        header {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-deep-gold));
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 1rem 2rem;
+            background: white;
+            border: 2px solid var(--border-gold);
+            color: var(--text-dark);
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-deep-gold));
+            color: white;
+            border-color: var(--accent-gold);
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .form-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            border: 2px solid var(--border-gold);
+            margin-bottom: 2rem;
+        }
+
+        .form-section h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-gold);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            font-family: 'Cinzel', serif;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--border-gold);
+            border-radius: 8px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1rem;
+            background: var(--primary-light);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        .image-upload-area {
+            border: 3px dashed var(--border-gold);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: var(--primary-light);
+        }
+
+        .image-upload-area:hover {
+            border-color: var(--accent-gold);
+            background: white;
+        }
+
+        .image-preview {
+            max-width: 200px;
+            max-height: 200px;
+            margin: 1rem auto;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-deep-gold));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(201, 160, 82, 0.4);
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .btn-edit {
+            background: #007bff;
+            color: white;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+        }
+
+        .products-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border: 2px solid var(--border-gold);
+            border-radius: 15px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 10px 30px rgba(201, 160, 82, 0.2);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .product-card h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-card .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--accent-deep-gold);
+            margin: 0.5rem 0;
+        }
+
+        .product-card .actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .alert {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .products-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌟 Astrodove Admin Dashboard</h1>
+            <p>Manage Your Crystal Products</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('add')">➕ Add Product</button>
+            <button class="tab-btn" onclick="switchTab('manage')">📦 Manage Products</button>
+            <button class="tab-btn" onclick="window.open('products.html', '_blank')">👁️ View Store</button>
+            <button class="tab-btn" onclick="logout()" style="background: #dc3545; color: white; border-color: #dc3545;">🚪 Logout</button>
+        </div>
+
+        <!-- Add Product Tab -->
+        <div id="add-tab" class="tab-content active">
+            <div class="form-section">
+                <h2>Add New Product</h2>
+                <div class="alert success" id="successAlert">Product added successfully! ✅</div>
+                <div class="alert error" id="errorAlert">Please fill all required fields!</div>
+
+                <form id="productForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="productName">Product Name *</label>
+                            <input type="text" id="productName" required placeholder="e.g., Amethyst Cluster">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productPrice">Price (₹) *</label>
+                            <input type="number" id="productPrice" required placeholder="e.g., 2500">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productCategory">Category *</label>
+                            <select id="productCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="healing">Healing Crystals</option>
+                                <option value="protection">Protection Stones</option>
+                                <option value="abundance">Abundance & Prosperity</option>
+                                <option value="love">Love & Relationships</option>
+                                <option value="clarity">Clarity & Focus</option>
+                                <option value="chakra">Chakra Stones</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productBadge">Badge (Optional)</label>
+                            <select id="productBadge">
+                                <option value="">No Badge</option>
+                                <option value="NEW ARRIVAL">New Arrival</option>
+                                <option value="BESTSELLER">Bestseller</option>
+                                <option value="POPULAR">Popular</option>
+                                <option value="LIMITED">Limited Edition</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="productDescription">Description *</label>
+                            <textarea id="productDescription" required placeholder="Describe the crystal's properties and benefits..."></textarea>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="productBenefits">Benefits (comma-separated)</label>
+                            <input type="text" id="productBenefits" placeholder="e.g., Stress relief, Enhances intuition, Promotes peace">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Product Image *</label>
+                        <div class="image-upload-area" onclick="document.getElementById('productImage').click()">
+                            <p style="font-size: 3rem; margin-bottom: 1rem;">📸</p>
+                            <p>Click to upload image</p>
+                            <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">JPG, PNG (Max 5MB)</p>
+                        </div>
+                        <input type="file" id="productImage" accept="image/*" style="display: none;" onchange="previewImage(event)">
+                        <img id="imagePreview" class="image-preview">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">✨ Add Product</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Manage Products Tab -->
+        <div id="manage-tab" class="tab-content">
+            <div class="form-section">
+                <h2>Your Products</h2>
+                <div id="productsList" class="products-list">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        if (sessionStorage.getItem('astrodove_admin_logged_in') !== 'true') {
+            window.location.href = 'admin-login.html';
+        }
+
+        // Verify session hasn't expired (24 hours)
+        const timestamp = parseInt(sessionStorage.getItem('astrodove_admin_timestamp'));
+        const currentTime = Date.now();
+        const hoursPassed = (currentTime - timestamp) / (1000 * 60 * 60);
+        
+        if (hoursPassed >= 24) {
+            sessionStorage.clear();
+            window.location.href = 'admin-login.html';
+        }
+
+        // Products storage using localStorage
+        let products = JSON.parse(localStorage.getItem('astrodove_products')) || [];
+
+        // Switch tabs
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab + '-tab').classList.add('active');
+
+            if (tab === 'manage') {
+                displayProducts();
+            }
+        }
+
+        // Preview image
+        function previewImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Add product
+        document.getElementById('productForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const imageFile = document.getElementById('productImage').files[0];
+            if (!imageFile) {
+                showAlert('error', 'Please upload a product image!');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const product = {
+                    id: Date.now(),
+                    name: document.getElementById('productName').value,
+                    price: document.getElementById('productPrice').value,
+                    category: document.getElementById('productCategory').value,
+                    badge: document.getElementById('productBadge').value,
+                    description: document.getElementById('productDescription').value,
+                    benefits: document.getElementById('productBenefits').value.split(',').map(b => b.trim()).filter(b => b),
+                    image: e.target.result
+                };
+
+                products.push(product);
+                localStorage.setItem('astrodove_products', JSON.stringify(products));
+                
+                showAlert('success', 'Product added successfully! ✅');
+                document.getElementById('productForm').reset();
+                document.getElementById('imagePreview').style.display = 'none';
+                displayProducts();
+            };
+            reader.readAsDataURL(imageFile);
+        });
+
+        // Display products in manage tab
+        function displayProducts() {
+            const container = document.getElementById('productsList');
+            
+            if (products.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 2rem; color: var(--text-muted);">No products yet. Add your first product!</p>';
+                return;
+            }
+
+            container.innerHTML = products.map(product => `
+                <div class="product-card">
+                    <img src="${product.image}" alt="${product.name}">
+                    ${product.badge ? `<span style="background: var(--accent-gold); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-family: 'Cinzel', serif;">${product.badge}</span>` : ''}
+                    <h3>${product.name}</h3>
+                    <p class="price">₹${product.price}</p>
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">${product.category}</p>
+                    <p style="margin-top: 0.5rem;">${product.description.substring(0, 100)}...</p>
+                    <div class="actions">
+                        <button class="btn btn-edit" onclick="editProduct(${product.id})">✏️ Edit</button>
+                        <button class="btn btn-danger" onclick="deleteProduct(${product.id})">🗑️ Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Delete product
+        function deleteProduct(id) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                products = products.filter(p => p.id !== id);
+                localStorage.setItem('astrodove_products', JSON.stringify(products));
+                displayProducts();
+            }
+        }
+
+        // Edit product (simplified - reloads form)
+        function editProduct(id) {
+            const product = products.find(p => p.id === id);
+            if (product) {
+                document.getElementById('productName').value = product.name;
+                document.getElementById('productPrice').value = product.price;
+                document.getElementById('productCategory').value = product.category;
+                document.getElementById('productBadge').value = product.badge || '';
+                document.getElementById('productDescription').value = product.description;
+                document.getElementById('productBenefits').value = product.benefits.join(', ');
+                
+                const preview = document.getElementById('imagePreview');
+                preview.src = product.image;
+                preview.style.display = 'block';
+
+                // Delete old product after editing
+                deleteProduct(id);
+                
+                // Switch to add tab
+                document.querySelector('.tab-btn').click();
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // Show alert
+        function showAlert(type, message) {
+            const alert = document.getElementById(type === 'success' ? 'successAlert' : 'errorAlert');
+            alert.textContent = message;
+            alert.style.display = 'block';
+            setTimeout(() => {
+                alert.style.display = 'none';
+            }, 3000);
+        }
+
+        // Update products page HTML
+        function updateProductsPage() {
+            // This creates a downloadable products.html file with all products
+            console.log('Products saved! You need to export the updated products.html');
+            // For now, products are stored in localStorage and can be displayed dynamically
+        }
+
+        // Load products on page load
+        window.onload = function() {
+            displayProducts();
+        };
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                sessionStorage.clear();
+                window.location.href = 'admin-login.html';
+            }
+        }
+    </script>
+</body>
+</html>

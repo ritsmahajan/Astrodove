@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Astrodove</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary-cream: #f5f1e8; --accent-gold: #c9a052; --text-dark: #3d3528; --border-gold: rgba(201, 160, 82, 0.3); }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Cormorant Garamond', serif; background: var(--primary-cream); color: var(--text-dark); }
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 5%; display: flex; justify-content: space-between; align-items: center; background: rgba(250, 248, 243, 0.98); border-bottom: 2px solid var(--border-gold); }
+        .logo-img { height: 70px; }
+        nav ul { list-style: none; display: flex; gap: 2.5rem; }
+        nav a { font-family: 'Cinzel', serif; color: var(--text-dark); text-decoration: none; }
+        nav a:hover, nav a.active { color: var(--accent-gold); }
+        .page-hero { margin-top: 90px; padding: 6rem 5% 3rem; text-align: center; background: linear-gradient(135deg, #faf8f3 0%, #f5f1e8 50%, #ede7dc 100%); }
+        .page-hero h1 { font-family: 'Cinzel', serif; font-size: 3.5rem; color: var(--accent-gold); }
+        .services { padding: 4rem 5%; background: white; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem; max-width: 1400px; margin: 0 auto; }
+        .service-card { background: #faf8f3; padding: 3rem; border-radius: 15px; border: 2px solid var(--border-gold); transition: all 0.3s; }
+        .service-card:hover { transform: translateY(-10px); box-shadow: 0 20px 50px rgba(201, 160, 82, 0.2); }
+        .service-icon { font-size: 3.5rem; margin-bottom: 1.5rem; display: block; }
+        .service-card h3 { font-family: 'Cinzel', serif; font-size: 1.8rem; color: var(--accent-gold); margin-bottom: 1.5rem; }
+        .service-card p { font-size: 1.2rem; line-height: 1.9; }
+        .cta-section { padding: 6rem 5%; text-align: center; background: linear-gradient(135deg, #faf8f3 0%, #f5f1e8 50%, #ede7dc 100%); }
+        .cta-section h2 { font-family: 'Cinzel', serif; font-size: 3rem; color: var(--accent-gold); margin-bottom: 2rem; }
+        .cta-button { display: inline-block; padding: 1rem 3rem; background: linear-gradient(135deg, var(--accent-gold), #a67c3a); color: white; text-decoration: none; font-family: 'Cinzel', serif; font-size: 1.1rem; border-radius: 50px; transition: all 0.4s; }
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(201, 160, 82, 0.5); }
+        footer { padding: 3rem 5%; text-align: center; background: #8a7b6d; color: white; }
+        .footer-links { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; }
+        .footer-links a { color: #faf8f3; text-decoration: none; }
+        
+        @media (max-width: 768px) {
+            header { padding: 1rem 3%; }
+            .logo-img { height: 50px; }
+            nav { display: none; }
+            nav.active { 
+                display: block; 
+                position: fixed; 
+                top: 80px; 
+                left: 0; 
+                right: 0; 
+                background: white; 
+                padding: 2rem; 
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
+            }
+            nav.active ul { flex-direction: column; gap: 1.5rem; text-align: center; }
+            .page-hero { margin-top: 80px; padding: 4rem 3% 2rem; }
+            .page-hero h1 { font-size: 2.5rem; }
+            .page-hero p { font-size: 1.2rem; }
+            .services { padding: 3rem 3%; }
+            .services-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .service-card { padding: 2rem; }
+            .service-card h3 { font-size: 1.5rem; }
+            .service-card p { font-size: 1.1rem; }
+            .cta-section { padding: 4rem 3%; }
+            .cta-section h2 { font-size: 2rem; }
+            .cta-section p { font-size: 1.1rem; }
+            .cta-button { padding: 1rem 2rem; font-size: 1rem; }
+            .footer-links { flex-wrap: wrap; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <a href="index.html"><img src="Astrodove_logo_transparent.png" alt="Astrodove Logo" class="logo-img"></a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="services.html" class="active">Services</a></li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="page-hero">
+        <h1>Our Services</h1>
+        <p style="font-size: 1.4rem; margin-top: 1rem;">Explore the sacred arts that illuminate your cosmic path</p>
+    </section>
+
+    <section class="services">
+        <div class="services-grid">
+            <div class="service-card">
+                <span class="service-icon">🔮</span>
+                <h3>Online Consultation</h3>
+                <p>Personalized spiritual guidance from the comfort of your home. Connect with Rits Mahajan for transformative insights into your life path.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">💎</span>
+                <h3>Crystal Healing</h3>
+                <p>Harness the healing energy of authentic crystals. Carefully selected gemstones to balance your chakras and enhance your spiritual journey.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🃏</span>
+                <h3>Tarot Reading</h3>
+                <p>Unlock the mysteries of your past, present, and future through ancient tarot wisdom. Gain clarity on life's most pressing questions.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🔢</span>
+                <h3>Numerology</h3>
+                <p>Discover the hidden meanings in numbers that shape your destiny. Understand your life path, soul urge, and karmic lessons.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">⭐</span>
+                <h3>Astronumerology</h3>
+                <p>A unique blend of astrology and numerology for comprehensive cosmic insights. Align with your celestial blueprint.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🏛️</span>
+                <h3>Vastu Shastra</h3>
+                <p>Harmonize your living and working spaces with ancient architectural wisdom. Create environments that support prosperity and wellbeing.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">🌈</span>
+                <h3>Colour Therapy</h3>
+                <p>Heal and balance your energy through the vibrational power of colors. Discover hues that resonate with your soul.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">📱</span>
+                <h3>Mobile Number Analysis</h3>
+                <p>Ensure your mobile number vibrates in harmony with your energy. Choose numbers that attract success and positive opportunities.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-icon">✨</span>
+                <h3>Name Numerology</h3>
+                <p>Understand the cosmic significance of your name. Align your identity with your soul's purpose through name correction and analysis.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <h2>Ready to Begin Your Journey?</h2>
+        <p style="font-size: 1.3rem; margin-bottom: 3rem;">Book a consultation and discover the cosmic wisdom waiting for you</p>
+        <a href="contact.html" class="cta-button">Schedule Consultation</a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Astrodove. All rights reserved.</p>
+        <p>📱 Call/WhatsApp: +91 7507303192</p>
+        <div class="footer-links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="products.html">Products</a>
+            <a href="about.html">About</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </footer>
+</body>
+</html>
