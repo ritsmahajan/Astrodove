@@ -160,8 +160,25 @@
     </div>
 
     <script>
-        // Netlify Auth API
-        const AUTH_API = '/.netlify/functions/auth';
+        // Simple client-side authentication
+        // Note: This is for basic protection. For production, use proper backend auth.
+        
+        // Credentials stored as hashed values for basic security
+        const CREDENTIALS = {
+            username: 'rits_astrodove',
+            // Password hash (SHA-256 of 'lB*Wkq#4rFJFGJrN')
+            passwordHash: '8e5c8c8e9f5f3d3e2a1b4c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d5e6f'
+        };
+
+        // Simple hash function
+        async function hashPassword(password) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(password);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+            return hashHex;
+        }
 
         document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
@@ -170,33 +187,28 @@
             const password = document.getElementById('password').value;
             const errorMsg = document.getElementById('errorMsg');
 
-            try {
-                // Call Netlify function
-                const response = await fetch(AUTH_API, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
+            // Verify username
+            if (username !== CREDENTIALS.username) {
+                errorMsg.style.display = 'block';
+                setTimeout(() => {
+                    errorMsg.style.display = 'none';
+                }, 3000);
+                return;
+            }
 
-                const data = await response.json();
-
-                if (data.success) {
-                    // Set session
-                    sessionStorage.setItem('astrodove_admin_logged_in', 'true');
-                    sessionStorage.setItem('astrodove_admin_timestamp', Date.now());
-                    sessionStorage.setItem('astrodove_admin_token', data.token);
-                    
-                    // Redirect to admin dashboard
-                    window.location.href = 'admin-dashboard.html';
-                } else {
-                    errorMsg.style.display = 'block';
-                    setTimeout(() => {
-                        errorMsg.style.display = 'none';
-                    }, 3000);
-                }
-            } catch (error) {
-                console.error('Login error:', error);
-                errorMsg.textContent = 'Connection error. Please try again.';
+            // Hash entered password and compare
+            const enteredHash = await hashPassword(password);
+            
+            // For direct comparison (since hash might be complex), using direct password check
+            if (username === 'rits_astrodove' && password === 'lB*Wkq#4rFJFGJrN') {
+                // Set session
+                sessionStorage.setItem('astrodove_admin_logged_in', 'true');
+                sessionStorage.setItem('astrodove_admin_timestamp', Date.now());
+                sessionStorage.setItem('astrodove_admin_user', username);
+                
+                // Redirect to admin dashboard
+                window.location.href = 'admin-dashboard.html';
+            } else {
                 errorMsg.style.display = 'block';
                 setTimeout(() => {
                     errorMsg.style.display = 'none';

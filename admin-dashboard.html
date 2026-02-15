@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Astrodove Admin - Product Management</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Supabase JS Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
             --primary-cream: #f5f1e8;
@@ -362,11 +364,6 @@
     </div>
 
     <script>
-        // Netlify Functions API endpoints
-        const API_BASE = '/.netlify/functions';
-        const AUTH_API = `${API_BASE}/auth`;
-        const PRODUCTS_API = `${API_BASE}/products`;
-
         // Check if user is logged in
         if (sessionStorage.getItem('astrodove_admin_logged_in') !== 'true') {
             window.location.href = 'admin-login.html';
@@ -382,25 +379,8 @@
             window.location.href = 'admin-login.html';
         }
 
-        // Initialize products from Netlify
-        let products = [];
-        
-        // Load products from Netlify on page load
-        async function loadProductsFromNetlify() {
-            try {
-                const response = await fetch(PRODUCTS_API);
-                const data = await response.json();
-                if (data.success) {
-                    products = data.products;
-                    displayProducts();
-                }
-            } catch (error) {
-                console.error('Error loading products:', error);
-                // Fallback to localStorage for testing
-                products = JSON.parse(localStorage.getItem('astrodove_products')) || [];
-                displayProducts();
-            }
-        }
+        // Products storage using localStorage
+        let products = JSON.parse(localStorage.getItem('astrodove_products')) || [];
 
         // Switch tabs
         function switchTab(tab) {
@@ -430,7 +410,7 @@
         }
 
         // Add product
-        document.getElementById('productForm').addEventListener('submit', async function(e) {
+        document.getElementById('productForm').addEventListener('submit', function(e) {
             e.preventDefault();
 
             const imageFile = document.getElementById('productImage').files[0];
@@ -440,8 +420,9 @@
             }
 
             const reader = new FileReader();
-            reader.onload = async function(e) {
+            reader.onload = function(e) {
                 const product = {
+                    id: Date.now(),
                     name: document.getElementById('productName').value,
                     price: document.getElementById('productPrice').value,
                     category: document.getElementById('productCategory').value,
@@ -451,35 +432,13 @@
                     image: e.target.result
                 };
 
-                try {
-                    // Save to Netlify
-                    const response = await fetch(PRODUCTS_API, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(product)
-                    });
-                    
-                    const data = await response.json();
-                    
-                    if (data.success) {
-                        products.push(data.product);
-                        showAlert('success', 'Product added successfully! ✅');
-                        document.getElementById('productForm').reset();
-                        document.getElementById('imagePreview').style.display = 'none';
-                        loadProductsFromNetlify(); // Reload products
-                    } else {
-                        throw new Error(data.error || 'Failed to add product');
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    // Fallback to localStorage
-                    product.id = Date.now();
-                    products.push(product);
-                    localStorage.setItem('astrodove_products', JSON.stringify(products));
-                    showAlert('success', 'Product added (local storage)');
-                    document.getElementById('productForm').reset();
-                    document.getElementById('imagePreview').style.display = 'none';
-                }
+                products.push(product);
+                localStorage.setItem('astrodove_products', JSON.stringify(products));
+                
+                showAlert('success', 'Product added successfully! ✅');
+                document.getElementById('productForm').reset();
+                document.getElementById('imagePreview').style.display = 'none';
+                displayProducts();
             };
             reader.readAsDataURL(imageFile);
         });
@@ -510,25 +469,11 @@
         }
 
         // Delete product
-        async function deleteProduct(id) {
+        function deleteProduct(id) {
             if (confirm('Are you sure you want to delete this product?')) {
-                try {
-                    const response = await fetch(`${PRODUCTS_API}?id=${id}`, {
-                        method: 'DELETE'
-                    });
-                    const data = await response.json();
-                    
-                    if (data.success) {
-                        products = products.filter(p => p.id !== id);
-                        displayProducts();
-                    }
-                } catch (error) {
-                    console.error('Error:', error);
-                    // Fallback to localStorage
-                    products = products.filter(p => p.id !== id);
-                    localStorage.setItem('astrodove_products', JSON.stringify(products));
-                    displayProducts();
-                }
+                products = products.filter(p => p.id !== id);
+                localStorage.setItem('astrodove_products', JSON.stringify(products));
+                displayProducts();
             }
         }
 
@@ -575,7 +520,7 @@
 
         // Load products on page load
         window.onload = function() {
-            loadProductsFromNetlify();
+            displayProducts();
         };
 
         // Logout function

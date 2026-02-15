@@ -377,83 +377,41 @@
     </footer>
 
     <script>
-        // Netlify API endpoint
-        const PRODUCTS_API = '/.netlify/functions/products';
-
-        // Load products from Netlify
-        async function loadAdminProducts() {
-            try {
-                const response = await fetch(PRODUCTS_API);
-                const data = await response.json();
-                
-                if (data.success && data.products.length > 0) {
-                    const productsGrid = document.querySelector('.products-grid');
+        // Load products from localStorage (added via admin panel)
+        function loadAdminProducts() {
+            const adminProducts = JSON.parse(localStorage.getItem('astrodove_products')) || [];
+            const productsGrid = document.querySelector('.products-grid');
+            
+            if (adminProducts.length > 0) {
+                // Add admin products
+                adminProducts.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    productCard.setAttribute('data-category', product.category);
                     
-                    // Add Netlify products
-                    data.products.forEach(product => {
-                        const productCard = document.createElement('div');
-                        productCard.className = 'product-card';
-                        productCard.setAttribute('data-category', product.category);
-                        
-                        const benefitsHTML = product.benefits && product.benefits.length > 0 
-                            ? `<ul class="product-benefits">${product.benefits.map(b => `<li>${b}</li>`).join('')}</ul>`
-                            : '';
-                        
-                        productCard.innerHTML = `
-                            <div class="product-image">
-                                <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                    const benefitsHTML = product.benefits && product.benefits.length > 0 
+                        ? `<ul class="product-benefits">${product.benefits.map(b => `<li>${b}</li>`).join('')}</ul>`
+                        : '';
+                    
+                    productCard.innerHTML = `
+                        <div class="product-image">
+                            <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                        </div>
+                        <div class="product-info">
+                            ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                            <h3>${product.name}</h3>
+                            <p class="product-category">${getCategoryName(product.category)}</p>
+                            <p class="product-description">${product.description}</p>
+                            ${benefitsHTML}
+                            <div class="product-footer">
+                                <span class="product-price">₹${product.price}</span>
+                                <a href="contact.html" class="product-btn">Inquire Now</a>
                             </div>
-                            <div class="product-info">
-                                ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
-                                <h3>${product.name}</h3>
-                                <p class="product-category">${getCategoryName(product.category)}</p>
-                                <p class="product-description">${product.description}</p>
-                                ${benefitsHTML}
-                                <div class="product-footer">
-                                    <span class="product-price">₹${product.price}</span>
-                                    <a href="contact.html" class="product-btn">Inquire Now</a>
-                                </div>
-                            </div>
-                        `;
-                        
-                        productsGrid.appendChild(productCard);
-                    });
-                }
-            } catch (error) {
-                console.error('Error loading products from Netlify:', error);
-                // Fallback to localStorage
-                const localProducts = JSON.parse(localStorage.getItem('astrodove_products')) || [];
-                if (localProducts.length > 0) {
-                    const productsGrid = document.querySelector('.products-grid');
-                    localProducts.forEach(product => {
-                        const productCard = document.createElement('div');
-                        productCard.className = 'product-card';
-                        productCard.setAttribute('data-category', product.category);
-                        
-                        const benefitsHTML = product.benefits && product.benefits.length > 0 
-                            ? `<ul class="product-benefits">${product.benefits.map(b => `<li>${b}</li>`).join('')}</ul>`
-                            : '';
-                        
-                        productCard.innerHTML = `
-                            <div class="product-image">
-                                <img src="${product.image}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover;">
-                            </div>
-                            <div class="product-info">
-                                ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
-                                <h3>${product.name}</h3>
-                                <p class="product-category">${getCategoryName(product.category)}</p>
-                                <p class="product-description">${product.description}</p>
-                                ${benefitsHTML}
-                                <div class="product-footer">
-                                    <span class="product-price">₹${product.price}</span>
-                                    <a href="contact.html" class="product-btn">Inquire Now</a>
-                                </div>
-                            </div>
-                        `;
-                        
-                        productsGrid.appendChild(productCard);
-                    });
-                }
+                        </div>
+                    `;
+                    
+                    productsGrid.appendChild(productCard);
+                });
             }
         }
 
